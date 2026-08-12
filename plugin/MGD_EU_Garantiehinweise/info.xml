@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jtlshopplugin>
+    <Name>MGD_EU_Garantiehinweise</Name>
+    <Description>EU-Gewährleistungshinweis und artikelabhängiges GARAN-Label für JTL-Shop 5.</Description>
+    <Author>Michael Gahn DESIGN</Author>
+    <URL>https://Michael-Gahn.de</URL>
+    <PluginID>MGD_EU_Garantiehinweise</PluginID>
+    <XMLVersion>100</XMLVersion>
+    <MinShopVersion>5.5.0</MinShopVersion>
+    <CreateDate>2026-08-12</CreateDate>
+    <Version>1.0.0</Version>
+    <Install>
+        <Portlets>
+            <Portlet>
+                <Title>EU-Garantiehinweise</Title>
+                <Class>EUGarantiehinweise</Class>
+                <Group>content</Group>
+                <Active>1</Active>
+            </Portlet>
+        </Portlets>
+        <Adminmenu>
+            <Customlink sort="1"><Name>Anzeige</Name><Filename>anzeige.php</Filename></Customlink>
+            <Customlink sort="2"><Name>Sprachen</Name><Filename>sprachen.php</Filename></Customlink>
+            <Customlink sort="3"><Name>GARAN-Prüfung</Name><Filename>garan-pruefung.php</Filename></Customlink>
+            <Customlink sort="4"><Name>Systemstatus</Name><Filename>systemstatus.php</Filename></Customlink>
+        </Adminmenu>
+        <FlushTags>CACHING_GROUP_OPTION, CACHING_GROUP_ARTICLE</FlushTags>
+    </Install>
+</jtlshopplugin>

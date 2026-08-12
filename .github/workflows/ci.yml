@@ -1,0 +1,25 @@
+name: Plugin-Prüfung
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1', '8.2', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+      - name: PHP-Syntax prüfen
+        run: find plugin -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Tests ausführen
+        run: php -d zend.assertions=1 -d assert.exception=1 tests/run.php
+      - name: XML prüfen
+        run: xmllint --noout plugin/MGD_EU_Garantiehinweise/info.xml
+      - name: Unbeabsichtigte Whitespace-Fehler ausschließen
+        run: git diff --check
