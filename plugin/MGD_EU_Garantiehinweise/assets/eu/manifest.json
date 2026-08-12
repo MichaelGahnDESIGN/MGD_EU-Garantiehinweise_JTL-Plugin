@@ -1,0 +1,10 @@
+{
+  "source_page": "https://commission.europa.eu/publications/practical-guidelines-and-high-resolution-vector-files-eu-notice-and-label-product-guarantees_en",
+  "retrieved_at": "2026-08-12",
+  "files": [
+    {"path":"de/legal-guarantee-notice.svg","type":"legal_guarantee_notice","language":"de","sha256":"fd39364dbe42fa775ff55fb9b7aa80c377a5d04219929fef86a8522eed486b1a","source_url":"https://commission.europa.eu/document/download/27c45f1f-78a1-47a7-a7cc-adf23afee5ea_en?filename=SVG.zip"},
+    {"path":"en/legal-guarantee-notice.svg","type":"legal_guarantee_notice","language":"en","sha256":"d1b4293b75637022b582b3025f789d292e1c845660a0460d855bbe523b9763f7","source_url":"https://commission.europa.eu/document/download/27c45f1f-78a1-47a7-a7cc-adf23afee5ea_en?filename=SVG.zip"},
+    {"path":"garan/garan-label-nested-display.svg","type":"garan_nested_display","language":"neutral","sha256":"1c1122b25f39333b329e4156b572b65f1f850592df0b061358b9404f43acb994","source_url":"https://commission.europa.eu/document/download/435fbeb1-fccc-4ead-bfa9-96625962ba09_en?filename=GARAN%20label%20for%20website.zip"},
+    {"path":"garan/garan-label-colour.svg","type":"garan_full_label","language":"neutral","sha256":"3414c8366823db39702d2557e614f882b530487ce589e903afdc98b7225e1ab1","source_url":"https://commission.europa.eu/document/download/435fbeb1-fccc-4ead-bfa9-96625962ba09_en?filename=GARAN%20label%20for%20website.zip"}
+  ]
+}
