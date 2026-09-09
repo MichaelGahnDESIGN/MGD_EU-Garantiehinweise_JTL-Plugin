@@ -1,61 +1,44 @@
 # MGD EU-Garantiehinweise für JTL-Shop 5
 
-Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshinweis und das artikelabhängige GARAN-Label in JTL-Shop 5.5 bis zur jeweils aktuellen 5.x-Version.
+**Entwicklungsstand 1.1.0 – noch kein freigegebenes Release und keine belegte JTL-Shopabnahme.**
 
-> Rechtlicher Hinweis: Das Plugin setzt technische Darstellungen um und ersetzt keine individuelle Rechtsberatung. Shopbetreiber müssen Inhalte, Sortiment, Garantiebedingungen und den konkreten Anwendungsbereich rechtlich prüfen lassen.
+Das Plugin unterstützt den allgemeinen EU-Gewährleistungshinweis und das produktbezogene GARAN-Label. Deutsch und Englisch werden mit unveränderten lokalen EU-Grafiken unterstützt. Es verwendet keine eigenen Cookies, kein Tracking und keine externen Laufzeitressourcen.
 
-## Funktionen
+> Keine Rechtsberatung: Einstellungen und technische Tests bestätigen keine Rechtskonformität einer Händlerkonfiguration. Anwendungsbereich, Herstellerdaten, Darstellung und Kaufwege müssen vor Live-Einsatz geprüft werden.
 
-- Serverseitige Ausgabe des Gewährleistungshinweises auf Artikeldetailseiten, im Warenkorb und vor dem finalen Bestellbutton.
-- Offizielle EU-Grafiken werden unverändert und datenschutzfreundlich lokal ausgeliefert.
-- GARAN-Label nur bei vollständig gepflegten und gültigen Artikeldaten.
-- Deutsch und Englisch mit deutschem Fallback.
-- Redaktionelles OPC-Portlet für frei platzierbare Zusatzinformationen.
-- Keine Cookies, kein Tracking und keine externen Laufzeitaufrufe.
+## Neue Konfiguration
 
-## Installation
+19 native JTL-Einstellungen, aufgeteilt in Gewährleistung, Sprachauswahl, GARAN und Template:
 
-1. Das Release-ZIP im JTL-Shop-Backend unter **Plugins > Plugin-Manager > Upload** hochladen.
-2. `MGD_EU_Garantiehinweise` installieren und aktivieren.
-3. Shop- und Template-Cache leeren.
-4. Produktseite, Warenkorb und letzten Checkout-Schritt in beiden Sprachen prüfen.
+- Beide Labeltypen getrennt aktivieren; allgemeiner Hinweis auf Produktseite, Warenkorb und vor Bestellabschluss einzeln wählbar.
+- Hinweis immer vollständig direkt sichtbar. Große Maximalbreiten, Ausrichtung, äußerer Rahmen und Begleittext wählbar; keine Popup-Option für den allgemeinen Hinweis.
+- Automatische Shopsprache oder feste Sprache, konfigurierbare Ausweichsprache.
+- GARAN vollständig direkt oder kompakt mit zugänglichem Detaildialog; lokaler Dateilink als Fallback ohne JavaScript.
+- GARAN-Position, Größe, Wawi-Attributpräfix und einfache Template-Anker einstellbar.
 
-## GARAN über JTL-Wawi steuern
+## GARAN sicher pflegen
 
-Das GARAN-Label wird nur ausgegeben, wenn alle Funktionsattribute gültig sind:
+Die fünf bisherigen Wawi-Attribute reichen ab 1.1.0 nicht mehr. Zusätzliche Einzelbestätigungen und eine vollständig ausgefüllte lokale Hersteller-PNG/JPG mit SHA-256 sind erforderlich. Fehlende Daten oder defekte Dateien unterdrücken das GARAN-Label. Der allgemeine Hinweis bleibt davon unabhängig.
 
-| Funktionsattribut | Erwarteter Wert |
-|---|---|
-| `mgd_garan_aktiv` | exakt `1` |
-| `mgd_garan_jahre` | Zahl größer als `2` |
-| `mgd_garan_marke` | nicht leer |
-| `mgd_garan_modell` | nicht leer |
-| `mgd_garan_bedingungen_url` | absolute HTTPS-Adresse |
+Details: [Wawi-Attribute](docs/JTL-WAWI-ATTRIBUTE.md), [Einstellungen](docs/EINSTELLUNGEN.md), [Update/Installation](docs/INSTALLATION.md), [Architektur](docs/ARCHITEKTUR.md), [Sicherheit](docs/SICHERHEIT.md), [Teststand](docs/TESTMATRIX.md), [rechtliche Abgrenzung](docs/RECHTLICHE-ABGRENZUNG.md).
 
-Fehlerhafte oder unvollständige Daten führen bewusst dazu, dass kein GARAN-Label erscheint. Zugangsdaten in URLs werden abgewiesen.
+**Mobile Grenze:** Eine amtliche Grafik kann auf schmalen Geräten trotz voller Breite sehr kleine Schrift enthalten. Die zusätzliche Textentsprechung hilft beim Lesen, ersetzt aber nicht die notwendige Darstellungsprüfung. Keine pauschale mobile oder rechtliche Abnahme.
 
-## OPC-Portlet
-
-Das Portlet **EU-Garantiehinweise** bietet editierbare Felder für Überschrift, Richtext, Linktext und einen internen Shop-Pfad. Externe, protokoll-relative und ausführbare Linkziele werden nicht ausgegeben. Das Portlet ist eine redaktionelle Ergänzung. Die automatisch eingebauten Pflichtstellen dürfen dadurch nicht ersetzt oder entfernt werden.
-
-## Entwicklung und Prüfung
+## Entwicklung
 
 ```bash
-php tests/run.php
+php -d zend.assertions=1 -d assert.exception=1 tests/run.php
 find plugin -name '*.php' -print0 | xargs -0 -n1 php -l
-xmllint --noout plugin/MGD_EU_Garantiehinweise/info.xml
+bash scripts/build-release.sh 1.1.0
+git diff --check
 ```
 
-Details stehen in [ARCHITEKTUR.md](docs/ARCHITEKTUR.md), [SICHERHEIT.md](docs/SICHERHEIT.md) und [EU-QUELLEN.md](docs/EU-QUELLEN.md).
+Der Testläufer baut das ZIP immer frisch und vergleicht die enthaltenen Plugin-Dateien mit dem aktuellen Quellcode. `dist/` enthält lokale Testpakete, keine automatische Veröffentlichungsfreigabe. Ein bestehendes 1.0.0-ZIP bleibt historisch erhalten und wird nicht als Prüfnachweis für 1.1.0 verwendet.
 
-## English summary
-
-Reusable open-source plugin for JTL-Shop 5.5 through the current 5.x release. It renders the statutory EU guarantee notice on the product page, cart and final checkout step and conditionally displays the GARAN label using five JTL-Wawi functional attributes. Official assets are bundled locally; no tracking or third-party runtime requests are used.
-
-Installation and attribute names are language-neutral. German and English storefront output is included. This software provides technical functionality and does not constitute legal advice.
+Die Entwicklung erfolgt zuerst für JTL, danach separat für Shopware und WooCommerce. Das vorhandene OPC-Portlet bleibt eine redaktionelle Ergänzung, kein Ersatz der vollständigen amtlichen Grafik.
 
 ## Urheber und Lizenz
 
 Copyright (c) 2026 Michael Gahn DESIGN - https://Michael-Gahn.de
 
-Veröffentlicht unter **GPL-3.0-or-later**. Siehe [LICENSE](LICENSE).
+Programmcode unter **GPL-3.0-or-later**. Siehe [LICENSE](LICENSE). Amtliche Grafiken bleiben unverändert; Herkunft und Hashes siehe [EU-QUELLEN.md](docs/EU-QUELLEN.md). Herstellerdateien gehören nicht ins Repository.

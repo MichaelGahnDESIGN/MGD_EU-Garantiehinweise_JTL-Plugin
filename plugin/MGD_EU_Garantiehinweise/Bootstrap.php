@@ -5,13 +5,8 @@ namespace Plugin\MGD_EU_Garantiehinweise;
 use JTL\Events\Dispatcher;
 use JTL\Plugin\Bootstrapper;
 use JTL\Shop;
-use Plugin\MGD_EU_Garantiehinweise\Assets\AssetIntegrityService;
-use Plugin\MGD_EU_Garantiehinweise\Frontend\AssetPlacementService;
-use Plugin\MGD_EU_Garantiehinweise\Frontend\DocumentPlacementService;
-use Plugin\MGD_EU_Garantiehinweise\Frontend\HtmlRenderer;
-use Plugin\MGD_EU_Garantiehinweise\Garan\GaranAttributeReader;
-use Plugin\MGD_EU_Garantiehinweise\Garan\GaranEligibilityService;
-use Plugin\MGD_EU_Garantiehinweise\Language\LanguageService;
+use Plugin\MGD_EU_Garantiehinweise\Configuration\Settings;
+use Plugin\MGD_EU_Garantiehinweise\Frontend\ShopOutput;
 
 /**
  * Zentraler Einstiegspunkt des Plugins.
@@ -33,55 +28,11 @@ final class Bootstrap extends Bootstrapper
                 return;
             }
 
-            $context = $this->detectContext($document);
-            if ($context === null) {
-                return;
-            }
-
-            $language = (new LanguageService('de'))->resolve(Shop::getLanguageCode());
-            $baseUrl = $this->getPlugin()->getPaths()->getBaseURL();
-            (new AssetPlacementService())->place(
-                $document,
-                $baseUrl . 'frontend/css/frontend.css',
-                $baseUrl . 'frontend/js/dialog.js'
+            (new ShopOutput())->render(
+                $document, $smarty, Settings::fromPlugin($this->getPlugin()), Shop::getLanguageCode(),
+                __DIR__, $this->getPlugin()->getPaths()->getBaseURL(),
+                defined('PFAD_ROOT') ? (string)\PFAD_ROOT : '', Shop::getURL()
             );
-
-            $assetDirectory = __DIR__ . '/assets/eu';
-            $integrity = new AssetIntegrityService($assetDirectory);
-            $noticePath = $language . '/legal-guarantee-notice.svg';
-            if (!$integrity->isValid($noticePath)) {
-                return;
-            }
-            $renderer = new HtmlRenderer();
-            $notice = $renderer->legalNotice(
-                $language,
-                $baseUrl . 'assets/eu/' . $noticePath,
-                $context
-            );
-            $garan = '';
-
-            if ($context === 'product') {
-                $article = $smarty->getTemplateVars('Artikel');
-                if (is_object($article) || is_array($article)) {
-                    $result = (new GaranEligibilityService())->evaluate(
-                        (new GaranAttributeReader())->read($article)
-                    );
-                    if (
-                        $result->isEligible()
-                        && $integrity->isValid('garan/garan-label-nested-display.svg')
-                        && $integrity->isValid('garan/garan-label-colour.svg')
-                    ) {
-                        $garan = $renderer->garanLabel(
-                            $language,
-                            $baseUrl . 'assets/eu/garan/garan-label-nested-display.svg',
-                            $baseUrl . 'assets/eu/garan/garan-label-colour.svg',
-                            $result
-                        );
-                    }
-                }
-            }
-
-            (new DocumentPlacementService())->place($document, $notice, $garan);
         }, 20);
     }
 
@@ -106,18 +57,4 @@ final class Bootstrap extends Bootstrapper
         });
     }
 
-    private function detectContext(object $document): ?string
-    {
-        if ($document->find('#complete-order-button')->length > 0) {
-            return 'checkout';
-        }
-        if ($document->find('#cart-checkout-btn')->length > 0) {
-            return 'cart';
-        }
-        if ($document->find('#add-to-cart')->length > 0) {
-            return 'product';
-        }
-
-        return null;
-    }
 }

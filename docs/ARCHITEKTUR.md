@@ -1,24 +1,17 @@
-# Architektur
+# Architektur ab 1.1.0
 
-## Ziel
+`Bootstrap.php` registriert Autoloading und den bestehenden JTL-Outputfilter. `Frontend/ShopOutput.php` verbindet Settings, Seitenerkennung, amtliche Assetintegrität, Wawi-Datenprüfung, lokale Herstellerdatei und Renderer. Beide Labeltypen werden unabhängig geprüft: ein deaktivierter oder defekter allgemeiner Hinweis verhindert nicht pauschal GARAN und umgekehrt.
 
-Das Plugin bleibt unabhängig von einem bestimmten ChildTheme. Es nutzt den serverseitigen JTL-Output-Filter und stabile IDs des NOVA-Templates. So bleibt der gesetzliche Hinweis auch ohne JavaScript im HTML vorhanden.
+- `Configuration/Definitions/`: je Einstellung eine deutsche Definition; `Settings.php` normalisiert JTL-Werte durch Listen und enge Syntax.
+- `Frontend/ContextDetector.php`: erkennt Seiten an konfigurierten einfachen Ankern; `DocumentPlacementService.php`: idempotente Platzierung.
+- `Garan/`: reine Fachlogik und Wawi-Adapter, ohne Datenbankschreibzugriff.
+- `Security/`: HTTPS-Ziele und lokale Hersteller-PNG/JPG samt Hashprüfung.
+- `templates/`: getrennte Ansichten für Hinweis, Textentsprechungen und GARAN.
+- `Admin/SystemStatus.php`: technische Daten ohne Kunden-/Artikelinhalte.
+- JTL-Settingslinks in `info.xml`: JTL übernimmt die Speicherung in seinen vorhandenen Plugin-Einstellungstabellen. Keine eigenen Tabellen, Geheimnisse oder Schema-Migrationen.
 
-## Bausteine
+Der allgemeine Hinweis wird direkt ausgegeben, GARAN optional als Dialog. Nur wenn tatsächlich ein GARAN-Dialog gerendert wird, wird das lokale Dialogskript geladen. CSS kommt nur bei mindestens einer Kennzeichnung hinzu.
 
-- `Bootstrap.php`: verbindet JTL-Ereignisse mit den Fachdiensten.
-- `src/Frontend`: erzeugt sicheres HTML und platziert es idempotent.
-- `src/Garan`: liest und validiert die Wawi-Funktionsattribute.
-- `src/Assets`: vergleicht die EU-Dateien mit dokumentierten SHA-256-Prüfsummen.
-- `src/Language`: wählt Deutsch oder Englisch mit kontrolliertem Fallback.
-- `Portlets`: frei bearbeitbare redaktionelle OPC-Ergänzung.
-- `adminmenu`: verständliche Einrichtung, Prüfkriterien und Systeminformationen.
+Herstellerdateien liegen unter `mediafiles/mgd-garan` außerhalb des Pluginverzeichnisses. Originale amtliche Grafiken werden nicht verändert. Das Plugin lädt keine Dateien herunter, erstellt keine Garantieverträge und ergänzt keine Bestelldaten.
 
-## Platzierungsreihenfolge
-
-1. `#complete-order-button`: unmittelbar vor dem finalen Bestellbutton.
-2. `#cart-checkout-btn`: unmittelbar vor dem Wechsel in den Checkout.
-3. `#add-to-cart`: unterhalb der Buybox auf der Produktseite.
-4. GARAN bevorzugt nach `#image_wrapper`, bei fehlender Galerie vor der Buybox.
-
-Die Plugin-Klassen verhindern doppelte Ausgaben, wenn JTL den Filter mehrfach aufruft.
+Der DOM-Testadapter prüft logische Platzierung und Wiederholungen. Er ist keine echte phpQuery-/JTL-Integration. JTL-5.5-Mindestversion bleibt deklariert; höhere konkrete 5.x-Versionen sind erst nach tatsächlicher Shopabnahme bestätigt.
