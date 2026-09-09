@@ -1,26 +1,23 @@
-# Installation, Update und Rückfall
+# Installation und Updateprüfung für 1.1.0
 
-## Voraussetzungen
+Dieser Entwicklungsstand ist nicht für eine ungeprüfte Live-Installation freigegeben. Vor Installation/Release ist Michaels ausdrückliche Freigabe erforderlich.
 
-- JTL-Shop ab Version 5.5 bis zur aktuellen 5.x-Version
-- PHP ab 8.1
-- NOVA oder ein auf NOVA basierendes ChildTheme
+1. Zielversion von JTL, Template, PHP und verwendete Checkout-/Variantenwege erfassen. Mindestens JTL 5.5 ist deklariert; keine pauschale Abnahme aller 5.x-Versionen.
+2. Bestehendes Plugin, Konfiguration, Wawi-Attribute und Herstellerdateien sichern. Ein Update zunächst auf einem isolierten Testshop durchführen.
+3. Frisches ZIP über den JTL-Pluginmanager installieren/aktualisieren. Prüfen, dass alle vier neuen Einstellungsreiter mit 19 Feldern erscheinen und gespeichert werden können.
+4. Cache leeren; Systemstatus kontrollieren. Anker und Anzeigeorte einstellen.
+5. Allgemeine Grafik in DE/EN im Warenkorb/Checkout und nach AJAX-Aktualisierung prüfen. Ausreichende Größe und mobile Lesbarkeit separat abnehmen.
+6. GARAN-Attribute gemäß JTL-WAWI-ATTRIBUTE.md ergänzen, vollständige Herstellerdateien außerhalb des Plugins ablegen und Hashes pflegen. Gültigen, ungültigen und variierenden Artikel prüfen.
+7. Kaufabschluss, Zahlungsanbieter, Express-/abweichende Kaufwege auf Staging durchgehen. Das Plugin darf den Checkout nicht beeinträchtigen.
 
-## Installation
+## Änderung gegenüber 1.0.0
 
-1. Vor Änderungen Shopdateien und Datenbank sichern.
-2. Das Release-ZIP unter **Plugins > Plugin-Manager > Upload** auswählen.
-3. `MGD_EU_Garantiehinweise` installieren und aktivieren.
-4. Shop- und Template-Cache leeren.
-5. Produktseite, Warenkorb und letzten Bestellschritt auf Deutsch und Englisch prüfen.
-6. Einen für GARAN vorbereiteten Testartikel sowie einen normalen Artikel prüfen.
+Die bisherigen fünf Attribute genügen nicht mehr. Neue Pflichtbestätigungen und Herstellerdatei fehlen bei alten Artikeln zunächst; dadurch bleibt GARAN absichtlich verborgen. Keine automatische Datenfreigabe oder Rückkehr zur leeren amtlichen Vorlage. Öffentliche Bedingungen-URLs mit Query/Fragment oder unüblichen Ports werden nicht mehr akzeptiert.
 
-## Update
+Der allgemeine Hinweis ist nun größer. Die vorhandene Vorlage kann deshalb mehr Platz benötigen. Das ist vor dem Update zu prüfen; kein stilles Miniatur-Fallback.
 
-Vor einem Update immer ein Backup erstellen. Das neue Release-ZIP über den Plugin-Manager einspielen und anschließend Cache sowie die drei Pflichtpositionen prüfen. Offizielle Grafikdateien dürfen nicht manuell verändert werden.
+## Rückfall
 
-## Rückfall und Deinstallation
+Bei Problemen vorheriges geprüftes Pluginpaket wiederherstellen oder das Plugin deaktivieren; Herstellerdateien und Wawi-Daten erhalten. Die frühere 1.0.0-GARAN-Darstellung ist kein rechtlich bestätigter Rückfall: gegebenenfalls GARAN deaktiviert lassen und alternative Kennzeichnung abstimmen. Nach Rollback Cache leeren und Kaufabschluss prüfen. Keine vollständige Datenbankrücksicherung über zwischenzeitliche Bestellungen.
 
-Bei einem Problem das Plugin im Plugin-Manager deaktivieren. Dadurch endet die Ausgabe sofort, ohne Artikeldaten in JTL-Wawi zu verändern. Nach einer Deinstallation bleiben die Wawi-Funktionsattribute erhalten.
-
-Das OPC-Portlet ist eine redaktionelle Ergänzung. Es ersetzt weder die automatische Artikeldetail-Ausgabe noch Warenkorb oder Bestellabschluss.
+Eine Deinstallation wird von JTL verwaltet. Zuvor Plugin-Einstellungen sichern; Herstellerdateien und Wawi-Attribute werden von diesem Plugin nicht gelöscht.
