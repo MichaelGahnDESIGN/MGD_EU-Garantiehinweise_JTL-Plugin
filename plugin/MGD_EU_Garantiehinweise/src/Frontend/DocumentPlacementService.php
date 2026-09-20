@@ -1,37 +1,33 @@
 <?php declare(strict_types=1);
-
 namespace Plugin\MGD_EU_Garantiehinweise\Frontend;
+use Plugin\MGD_EU_Garantiehinweise\Configuration\Settings;
 
-/** Fügt HTML idempotent an stabile NOVA-Elemente ein. */
+/** Fügt beide Kennzeichnungen unabhängig und pro Dokument höchstens einmal ein. */
 final class DocumentPlacementService
 {
-    public function place(object $document, string $legalNotice, string $garanLabel = ''): void
+    public function place(object $document, string $legalNotice, string $garanLabel = '', ?Settings $settings = null): void
     {
-        if ($document->find('.mgd-eu-notice')->length === 0) {
-            $this->placeLegalNotice($document, $legalNotice);
+        $settings ??= new Settings();
+        $context = (new ContextDetector())->detect($document, $settings);
+        if ($context === null) {
+            return;
         }
-        if ($garanLabel !== '' && $document->find('.mgd-garan')->length === 0) {
-            $gallery = $document->find('#image_wrapper')->first();
-            if ($gallery->length > 0) {
+        if ($legalNotice !== '' && $settings->noticeEnabled($context) && $document->find('.mgd-eu-notice')->length === 0) {
+            $target = $document->find($settings->get($context . '_anchor'))->first();
+            if ($context === 'product') {
+                $target->after($legalNotice);
+            } else {
+                $target->before($legalNotice);
+            }
+        }
+        if ($context === 'product' && $settings->get('garan_enabled') === 'Y'
+            && $garanLabel !== '' && $document->find('.mgd-garan')->length === 0) {
+            $gallery = $document->find($settings->get('gallery_anchor'))->first();
+            if ($settings->get('garan_position') === 'gallery' && $gallery->length > 0) {
                 $gallery->after($garanLabel);
             } else {
-                $document->find('#add-to-cart')->first()->before($garanLabel);
+                $document->find($settings->get('product_anchor'))->first()->before($garanLabel);
             }
-        }
-    }
-
-    private function placeLegalNotice(object $document, string $html): void
-    {
-        foreach (['#complete-order-button', '#cart-checkout-btn'] as $selector) {
-            $target = $document->find($selector)->first();
-            if ($target->length > 0) {
-                $target->before($html);
-                return;
-            }
-        }
-        $buyBox = $document->find('#add-to-cart')->first();
-        if ($buyBox->length > 0) {
-            $buyBox->after($html);
         }
     }
 }

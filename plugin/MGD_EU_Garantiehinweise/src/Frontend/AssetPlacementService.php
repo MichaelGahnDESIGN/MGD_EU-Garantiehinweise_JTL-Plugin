@@ -23,7 +23,7 @@ final class AssetPlacementService
             }
         }
 
-        if ($document->find('#mgd-eu-guarantee-dialog-script')->length === 0) {
+        if ($javascriptUrl !== '' && $document->find('#mgd-eu-guarantee-dialog-script')->length === 0) {
             $body = $document->find('body')->first();
             if ($body->length > 0) {
                 $body->append(sprintf(

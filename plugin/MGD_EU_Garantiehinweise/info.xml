@@ -7,8 +7,8 @@
     <PluginID>MGD_EU_Garantiehinweise</PluginID>
     <XMLVersion>100</XMLVersion>
     <MinShopVersion>5.5.0</MinShopVersion>
-    <CreateDate>2026-08-12</CreateDate>
-    <Version>1.0.0</Version>
+    <CreateDate>2026-09-09</CreateDate>
+    <Version>1.1.0</Version>
     <Install>
         <Portlets>
             <Portlet>
@@ -23,6 +23,173 @@
             <Customlink sort="2"><Name>Sprachen</Name><Filename>sprachen.php</Filename></Customlink>
             <Customlink sort="3"><Name>GARAN-Prüfung</Name><Filename>garan-pruefung.php</Filename></Customlink>
             <Customlink sort="4"><Name>Systemstatus</Name><Filename>systemstatus.php</Filename></Customlink>
+            <Settingslink sort="10">
+                <Name>Gewährleistung</Name>
+                <Setting type="selectbox" initialValue="Y" sort="1" conf="Y">
+                    <Name>Hinweis aktiv</Name>
+                    <Description>Deaktivieren entfernt den allgemeinen Hinweis. Alternative Einbindung vorher prüfen.</Description>
+                    <ValueName>mgd_eu_notice_enabled</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="Y" sort="2" conf="Y">
+                    <Name>Produktseite</Name>
+                    <Description>Allgemeinen Hinweis zusätzlich auf der Produktseite anzeigen.</Description>
+                    <ValueName>mgd_eu_notice_product</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="Y" sort="3" conf="Y">
+                    <Name>Warenkorb</Name>
+                    <Description>Direkt sichtbare Grafik im Warenkorb anzeigen.</Description>
+                    <ValueName>mgd_eu_notice_cart</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="Y" sort="4" conf="Y">
+                    <Name>Bestellabschluss</Name>
+                    <Description>Direkt sichtbare Grafik vor dem Bestellbutton anzeigen.</Description>
+                    <ValueName>mgd_eu_notice_checkout</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="800" sort="5" conf="Y">
+                    <Name>Hinweisbreite</Name>
+                    <Description>Maximalbreite; schmale Container begrenzen weiterhin die Lesbarkeit. Tatsächlichen Checkout mobil prüfen.</Description>
+                    <ValueName>mgd_eu_notice_width</ValueName>
+                    <SelectboxOptions>
+                        <Option value="640" sort="1">640 Pixel</Option>
+                        <Option value="800" sort="2">800 Pixel</Option>
+                        <Option value="full" sort="3">Volle verfügbare Breite</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="center" sort="6" conf="Y">
+                    <Name>Ausrichtung</Name>
+                    <Description>Ausrichtung der unveränderten Hinweisgrafik.</Description>
+                    <ValueName>mgd_eu_notice_align</ValueName>
+                    <SelectboxOptions>
+                        <Option value="left" sort="1">Links</Option>
+                        <Option value="center" sort="2">Zentriert</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="Y" sort="7" conf="Y">
+                    <Name>Rahmen um den Bereich</Name>
+                    <Description>Nur der äußere Bereich wird gestaltet, nicht die amtliche Grafik.</Description>
+                    <ValueName>mgd_eu_notice_frame</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="Y" sort="8" conf="Y">
+                    <Name>Erklärenden Begleittext anzeigen</Name>
+                    <Description>Zusätzliche Erklärung außerhalb der unveränderten Grafik.</Description>
+                    <ValueName>mgd_eu_notice_copy</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+            </Settingslink>
+            <Settingslink sort="11">
+                <Name>Sprachauswahl</Name>
+                <Setting type="selectbox" initialValue="auto" sort="9" conf="Y">
+                    <Name>Sprache</Name>
+                    <Description>Automatisch empfohlen; feste Sprache nur für passende Shopkonfiguration verwenden.</Description>
+                    <ValueName>mgd_eu_language</ValueName>
+                    <SelectboxOptions>
+                        <Option value="auto" sort="1">Automatisch nach Shopsprache</Option>
+                        <Option value="de" sort="2">Immer Deutsch</Option>
+                        <Option value="en" sort="3">Immer Englisch</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="de" sort="10" conf="Y">
+                    <Name>Ausweichsprache</Name>
+                    <Description>Für nicht unterstützte Sprachen. Keine Zusage, dass diese Sprache für einen anderen Zielmarkt ausreicht.</Description>
+                    <ValueName>mgd_eu_fallback_language</ValueName>
+                    <SelectboxOptions>
+                        <Option value="de" sort="1">Deutsch</Option>
+                        <Option value="en" sort="2">Englisch</Option>
+                    </SelectboxOptions>
+                </Setting>
+            </Settingslink>
+            <Settingslink sort="12">
+                <Name>GARAN</Name>
+                <Setting type="selectbox" initialValue="Y" sort="11" conf="Y">
+                    <Name>GARAN aktiv</Name>
+                    <Description>Nur vollständig bestätigte Artikel mit gültiger lokaler Herstellerdatei werden gekennzeichnet.</Description>
+                    <ValueName>mgd_eu_garan_enabled</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="inline" sort="12" conf="Y">
+                    <Name>GARAN-Darstellung</Name>
+                    <Description>Diese Auswahl gilt ausschließlich für GARAN, niemals für den allgemeinen Hinweis.</Description>
+                    <ValueName>mgd_eu_garan_display</ValueName>
+                    <SelectboxOptions>
+                        <Option value="inline" sort="1">Vollständiges Label direkt</Option>
+                        <Option value="dialog" sort="2">Kompaktes Label mit Detaildialog</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="gallery" sort="13" conf="Y">
+                    <Name>GARAN-Position</Name>
+                    <Description>Produktzuordnung und sichtbare Lage im verwendeten Template prüfen.</Description>
+                    <ValueName>mgd_eu_garan_position</ValueName>
+                    <SelectboxOptions>
+                        <Option value="gallery" sort="1">Nach der Galerie</Option>
+                        <Option value="buybox" sort="2">Vor der Buybox</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="selectbox" initialValue="640" sort="14" conf="Y">
+                    <Name>GARAN-Breite</Name>
+                    <Description>Maximalbreite der vollständigen Herstellerdatei. Lesbarkeit bleibt manuell zu prüfen.</Description>
+                    <ValueName>mgd_eu_garan_width</ValueName>
+                    <SelectboxOptions>
+                        <Option value="480" sort="1">480 Pixel</Option>
+                        <Option value="640" sort="2">640 Pixel</Option>
+                        <Option value="800" sort="3">800 Pixel</Option>
+                        <Option value="full" sort="4">Volle verfügbare Breite</Option>
+                    </SelectboxOptions>
+                </Setting>
+                <Setting type="text" initialValue="mgd_garan_" sort="15" conf="Y">
+                    <Name>Wawi-Attributpräfix</Name>
+                    <Description>Nur Kleinbuchstaben, Zahlen und Unterstrich, beginnend mit Buchstabe und endend mit Unterstrich; vorhandene Wawi-Daten müssen dazu passen.</Description>
+                    <ValueName>mgd_eu_attribute_prefix</ValueName>
+                </Setting>
+            </Settingslink>
+            <Settingslink sort="13">
+                <Name>Template</Name>
+                <Setting type="text" initialValue="#add-to-cart" sort="16" conf="Y">
+                    <Name>Produkt-Anker</Name>
+                    <Description>Eine einfache CSS-ID oder CSS-Klasse; dient auch zur Erkennung der Produktseite.</Description>
+                    <ValueName>mgd_eu_product_anchor</ValueName>
+                </Setting>
+                <Setting type="text" initialValue="#cart-checkout-btn" sort="17" conf="Y">
+                    <Name>Warenkorb-Anker</Name>
+                    <Description>Eine einfache CSS-ID oder CSS-Klasse. Hinweis wird davor eingefügt.</Description>
+                    <ValueName>mgd_eu_cart_anchor</ValueName>
+                </Setting>
+                <Setting type="text" initialValue="#complete-order-button" sort="18" conf="Y">
+                    <Name>Bestellbutton-Anker</Name>
+                    <Description>Eine einfache CSS-ID oder CSS-Klasse. Hinweis wird davor eingefügt.</Description>
+                    <ValueName>mgd_eu_checkout_anchor</ValueName>
+                </Setting>
+                <Setting type="text" initialValue="#image_wrapper" sort="19" conf="Y">
+                    <Name>Galerie-Anker</Name>
+                    <Description>Eine einfache CSS-ID oder CSS-Klasse. Fehlt sie, wird GARAN vor der Buybox eingefügt.</Description>
+                    <ValueName>mgd_eu_gallery_anchor</ValueName>
+                </Setting>
+            </Settingslink>
         </Adminmenu>
         <FlushTags>CACHING_GROUP_OPTION, CACHING_GROUP_ARTICLE</FlushTags>
     </Install>
