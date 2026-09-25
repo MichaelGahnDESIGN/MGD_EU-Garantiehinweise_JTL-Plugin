@@ -1,3 +1,16 @@
+<!-- MGD-HEADER -->
+<p align="center"><a href="https://Michael-Gahn.de"><img src="assets/mgd-logo.png" alt="Michael Gahn DESIGN" width="48"></a></p>
+
+<p align="center"><img src="assets/banner.svg" alt="MGD EU Garantiehinweise JTL Plugin" width="100%"></p>
+
+<p align="center">
+  <img alt="Lizenz" src="https://img.shields.io/github/license/MichaelGahnDESIGN/MGD_EU-Garantiehinweise_JTL-Plugin?label=Lizenz">
+  <a href="https://github.com/MichaelGahnDESIGN/MGD_EU-Garantiehinweise_JTL-Plugin/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/MichaelGahnDESIGN/MGD_EU-Garantiehinweise_JTL-Plugin?label=Release"></a>
+  <img alt="Sprache" src="https://img.shields.io/badge/Sprache-PHP-2f6fed">
+  <a href="https://Michael-Gahn.de"><img alt="by Michael Gahn DESIGN" src="https://img.shields.io/badge/by-Michael%20Gahn%20DESIGN-cd1616"></a>
+</p>
+<!-- /MGD-HEADER -->
+
 # MGD EU-Garantiehinweise für JTL-Shop 5
 
 Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshinweis und das artikelabhängige GARAN-Label in JTL-Shop 5.5 bis zur jeweils aktuellen 5.x-Version.
