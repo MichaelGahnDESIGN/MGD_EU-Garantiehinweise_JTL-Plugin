@@ -24,7 +24,7 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 - GARAN-Label nur bei vollständig gepflegten und gültigen Artikeldaten.
 - Deutsch und Englisch mit deutschem Fallback.
 - Redaktionelles OPC-Portlet für frei platzierbare Zusatzinformationen.
-- Keine Cookies, kein Tracking und keine externen Laufzeitaufrufe.
+- Keine Cookies oder Tracking. Die optionale Updateprüfung ruft GitHub nur beim Öffnen des Systemstatus im Backend ab.
 
 ## Installation
 
@@ -32,6 +32,12 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 2. `MGD_EU_Garantiehinweise` installieren und aktivieren.
 3. Shop- und Template-Cache leeren.
 4. Produktseite, Warenkorb und letzten Checkout-Schritt in beiden Sprachen prüfen.
+
+## Updates im JTL-Backend
+
+Ab Version `1.0.1` prüft der Reiter **Systemstatus** bei aktivierter Einstellung höchstens stündlich das neueste stabile GitHub-Release. Ein gültiges Release muss das exakt passende JTL-Plugin-ZIP enthalten. Der Reiter zeigt eine neue Version samt Release-Notizen und Download an. Nach einem Backup wird das ZIP unter **Plugins → Plugin-Manager → Upload** eingespielt; JTL bietet anschließend das Update der installierten Plugin-Version im Backend an. Ein GitHub-Release allein überschreibt keine Dateien im Shop und installiert keine Migrationen. Bestehende 1.0.0-Installationen benötigen einmalig dieses ZIP-Update, bevor sie selbst Release-Hinweise anzeigen können.
+
+Die Prüfung ist abschaltbar. GitHub sieht technisch die Server-IP und den Anfragezeitpunkt, aber keine Shop-, Bestell- oder Kundendaten. Fehler bei GitHub lassen das laufende Plugin unverändert. Vor einem produktiven Update Staging, Datenbank-/Dateibackup und Rückfall per vorherigem ZIP prüfen. `1.0.1` ist erst nach einem veröffentlichten Release und einem JTL-Testshop-Update als ausgerollt zu betrachten.
 
 ## GARAN über JTL-Wawi steuern
 

@@ -8,7 +8,7 @@
     <XMLVersion>100</XMLVersion>
     <MinShopVersion>5.5.0</MinShopVersion>
     <CreateDate>2026-08-12</CreateDate>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Install>
         <Portlets>
             <Portlet>
@@ -23,6 +23,18 @@
             <Customlink sort="2"><Name>Sprachen</Name><Filename>sprachen.php</Filename></Customlink>
             <Customlink sort="3"><Name>GARAN-Prüfung</Name><Filename>garan-pruefung.php</Filename></Customlink>
             <Customlink sort="4"><Name>Systemstatus</Name><Filename>systemstatus.php</Filename></Customlink>
+            <Settingslink sort="5">
+                <Name>Einstellungen</Name>
+                <Setting type="selectbox" initialValue="Y" sort="1" conf="Y">
+                    <Name>GitHub-Updatehinweise</Name>
+                    <Description>Prüft beim Öffnen des Systemstatus höchstens stündlich öffentliche Release-Daten. GitHub erhält technisch die Server-IP und den Anfragezeitpunkt; keine Shop- oder Kundendaten werden übertragen.</Description>
+                    <ValueName>update_notices</ValueName>
+                    <SelectboxOptions>
+                        <Option value="Y" sort="1">Ja</Option>
+                        <Option value="N" sort="2">Nein</Option>
+                    </SelectboxOptions>
+                </Setting>
+            </Settingslink>
         </Adminmenu>
         <FlushTags>CACHING_GROUP_OPTION, CACHING_GROUP_ARTICLE</FlushTags>
     </Install>

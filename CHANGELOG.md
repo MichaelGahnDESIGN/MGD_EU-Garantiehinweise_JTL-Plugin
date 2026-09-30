@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 - 2026-09-30 (vorbereitet)
+
+- Optionale GitHub-Release-Erkennung im JTL-Backend mit stündlichem Cache.
+- Verifizierter Release-Link und ZIP-Download für den JTL-Plugin-Manager.
+- Paketversion, Plugin-Identität und Release-Tag werden beim Bau abgeglichen.
+- Keine automatische Installation oder Veränderung produktiver Shop-Dateien.
+
 ## 1.0.0 - 2026-08-12
 
 - Automatische Hinweise für Produktseite, Warenkorb und Bestellabschluss.

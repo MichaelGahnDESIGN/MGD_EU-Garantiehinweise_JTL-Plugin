@@ -19,6 +19,8 @@
 
 Vor einem Update immer ein Backup erstellen. Das neue Release-ZIP über den Plugin-Manager einspielen und anschließend Cache sowie die drei Pflichtpositionen prüfen. Offizielle Grafikdateien dürfen nicht manuell verändert werden.
 
+Ab 1.0.1 zeigt **Systemstatus** bei aktivierter GitHub-Prüfung eine neuere stabile Version und den geprüften ZIP-Link an. Der Abruf ist auf höchstens einmal pro Stunde und Shop begrenzt. Das ZIP wird anschließend bewusst im JTL-Plugin-Manager hochgeladen; erst dessen Update-Schritt führt den Plugin-Lebenszyklus aus. Die automatische Erkennung ist kein unbeaufsichtigtes Dateiüberschreiben. Vor dem ersten produktiven Einsatz den kompletten Ablauf auf einem Testshop prüfen.
+
 ## Rückfall und Deinstallation
 
 Bei einem Problem das Plugin im Plugin-Manager deaktivieren. Dadurch endet die Ausgabe sofort, ohne Artikeldaten in JTL-Wawi zu verändern. Nach einer Deinstallation bleiben die Wawi-Funktionsattribute erhalten.

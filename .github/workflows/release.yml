@@ -1,0 +1,32 @@
+name: JTL-Release veröffentlichen
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - name: Tag, Syntax, Tests und Paket prüfen
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          test "$GITHUB_REF_NAME" = "v$version"
+          test "$(php -r 'echo (string)simplexml_load_file("plugin/MGD_EU_Garantiehinweise/info.xml")->Version;')" = "$version"
+          find plugin -name '*.php' -print0 | xargs -0 -n1 php -l
+          php -d zend.assertions=1 -d assert.exception=1 tests/run.php
+          unzip -tq "dist/MGD_EU-Garantiehinweise_JTL-Plugin-$version.zip"
+      - name: Stabiles GitHub-Release mit installierbarem ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip dist/*.sha256 --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag

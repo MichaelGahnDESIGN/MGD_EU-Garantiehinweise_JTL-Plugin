@@ -6,10 +6,10 @@ on:
 
 jobs:
   test:
-    runs-on: [self-hosted, Linux]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['8.1', '8.2', '8.3']
+        php: ['8.1', '8.4']
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
