@@ -45,7 +45,11 @@ jobs:
               [[ "$entry" == */ ]] && continue
               cmp <(unzip -p "dist/$package" "$entry") <(unzip -p "$existing" "$entry")
             done < <(unzip -Z1 "dist/$package")
-            cmp "dist/$package.sha256" "$existing.sha256"
+            # Die Prüfsummen beziehen sich auf die jeweiligen ZIP-Bytes. Ein
+            # anderer ZIP-Zeitstempel erzeugt trotz gleicher Dateien einen
+            # anderen Hash; beide Sidecars müssen ihr eigenes ZIP bestätigen.
+            (cd dist && sha256sum -c "$package.sha256")
+            (cd "$RUNNER_TEMP/mgd-existing" && sha256sum -c "$package.sha256")
           else
             gh release create "$GITHUB_REF_NAME" "dist/$package" "dist/$package.sha256" \
               --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
