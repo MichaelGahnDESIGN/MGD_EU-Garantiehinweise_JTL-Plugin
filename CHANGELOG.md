@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.0.1 - 2026-09-30 (vorbereitet)
+## 1.0.2 - 2026-09-30
+
+- Release-Prüfung verarbeitet einen bereits veröffentlichten Entwurf ohne doppeltes Release.
+- ZIP-Inhalte werden unabhängig von ZIP-Zeitstempeln verglichen; jede SHA-256-Datei bestätigt ihr eigenes Paket.
+- Plugin-Funktion unverändert. Ein produktiver JTL-Update-Test steht weiterhin aus.
+
+## 1.0.1 - 2026-09-30
 
 - Optionale GitHub-Release-Erkennung im JTL-Backend mit stündlichem Cache.
 - Verifizierter Release-Link und ZIP-Download für den JTL-Plugin-Manager.

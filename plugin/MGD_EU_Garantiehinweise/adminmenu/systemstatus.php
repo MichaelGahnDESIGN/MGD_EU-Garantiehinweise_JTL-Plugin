@@ -3,7 +3,7 @@
 use Plugin\MGD_EU_Garantiehinweise\Update\ReleaseChecker;
 
 require_once dirname(__DIR__) . '/src/Update/ReleaseChecker.php';
-$version = '1.0.1';
+$version = '1.0.2';
 $enabled = isset($oPlugin) && is_object($oPlugin)
     && $oPlugin->getConfig()->getValue('update_notices') === 'Y';
 $update = (new ReleaseChecker())->check($version, $enabled);

@@ -8,7 +8,7 @@
     <XMLVersion>100</XMLVersion>
     <MinShopVersion>5.5.0</MinShopVersion>
     <CreateDate>2026-08-12</CreateDate>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Install>
         <Portlets>
             <Portlet>
