@@ -80,7 +80,7 @@ final class ReleaseChecker
             CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_HTTPHEADER => ['Accept: application/vnd.github+json', 'User-Agent: MGD-EU-Garantiehinweise/1.0.1'],
+            CURLOPT_HTTPHEADER => ['Accept: application/vnd.github+json', 'User-Agent: MGD-EU-Garantiehinweise/1.0.2'],
             CURLOPT_WRITEFUNCTION => static function ($handle, string $chunk) use (&$body): int {
                 if (strlen($body) + strlen($chunk) > self::MAX_BYTES) {
                     return 0;
