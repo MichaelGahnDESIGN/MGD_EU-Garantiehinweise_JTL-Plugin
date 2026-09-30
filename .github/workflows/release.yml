@@ -29,4 +29,24 @@ jobs:
       - name: Stabiles GitHub-Release mit installierbarem ZIP
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/*.zip dist/*.sha256 --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          package="MGD_EU-Garantiehinweise_JTL-Plugin-$version.zip"
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            # Ein vorher geprüfter Entwurf bleibt unverändert. Zeitstempel im ZIP
+            # können abweichen, Dateipfade und Inhalte müssen gleich sein.
+            mkdir -p "$RUNNER_TEMP/mgd-existing"
+            gh release download "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" \
+              --pattern "$package" --pattern "$package.sha256" --dir "$RUNNER_TEMP/mgd-existing"
+            existing="$RUNNER_TEMP/mgd-existing/$package"
+            diff -u <(unzip -Z1 "dist/$package" | sort) <(unzip -Z1 "$existing" | sort)
+            while IFS= read -r entry; do
+              [[ "$entry" == */ ]] && continue
+              cmp <(unzip -p "dist/$package" "$entry") <(unzip -p "$existing" "$entry")
+            done < <(unzip -Z1 "dist/$package")
+            cmp "dist/$package.sha256" "$existing.sha256"
+          else
+            gh release create "$GITHUB_REF_NAME" "dist/$package" "dist/$package.sha256" \
+              --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
+          fi
