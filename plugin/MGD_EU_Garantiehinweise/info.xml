@@ -23,7 +23,8 @@
             <Customlink sort="2"><Name>Sprachen</Name><Filename>sprachen.php</Filename></Customlink>
             <Customlink sort="3"><Name>GARAN-Prüfung</Name><Filename>garan-pruefung.php</Filename></Customlink>
             <Customlink sort="4"><Name>Systemstatus</Name><Filename>systemstatus.php</Filename></Customlink>
-            <Settingslink sort="5">
+            <Customlink sort="5"><Name>Updates</Name><Filename>updates.php</Filename></Customlink>
+            <Settingslink sort="6">
                 <Name>Einstellungen</Name>
                 <Setting type="selectbox" initialValue="Y" sort="1" conf="Y">
                     <Name>GitHub-Updatehinweise</Name>
