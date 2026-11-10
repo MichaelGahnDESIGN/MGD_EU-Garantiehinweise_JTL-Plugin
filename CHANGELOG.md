@@ -1,13 +1,13 @@
 # Changelog
 
-## Unveröffentlicht
+## 1.0.3 – 2026-11-10
 
 - Neuer Backend-Reiter **Updates** mit dem gemeinsamen MGD Update Client (signierte Update-Prüfung, Paket herunterladen und prüfen).
 - Update-Prüfung nur auf Wunsch (Opt-in). Keine Ein-Klick-Installation, kein Datei-Austausch, keine automatische Aktivierung. Installiert wird nur in der JTL-Pluginverwaltung.
-- Der Update-Kanal arbeitet im einfachen Modus: Eine kleine Textdatei auf theme.michael-gahn.de (`plugin-updates/mgd-eu-garantiehinweise.json`) nennt Version und SHA-256-Prüfsumme, das ZIP kommt von GitHub, die Prüfsumme wird beim Download nachgerechnet. Das ist eine Prüfsumme, keine Signatur. Solange die Textdatei noch nicht auf dem Server liegt, meldet der Bereich nur einen Fehler beim Abruf. Sonst passiert nichts.
+- Der Update-Kanal arbeitet im einfachen Modus: Eine kleine Textdatei auf theme.michael-gahn.de (`plugin-updates/mgd-eu-garantiehinweise.json`) nennt Version und SHA-256-Prüfsumme, das ZIP kommt von GitHub, die Prüfsumme wird beim Download nachgerechnet. Das ist eine Prüfsumme, keine Signatur.
 - Neuer Smoke-Test `tests/test-update-client.php` (Rechte, CSRF, kein stiller Netzabruf, Ausgabe escaped).
 - Alte GitHub-Abfrage und Einstellung „GitHub-Updatehinweise“ entfernt (ersetzt durch den Update Client).
-- Plugin-Version bleibt unverändert bei 1.0.2.
+- Plugin-Version ist jetzt 1.0.3.
 
 ## 1.0.2 - 2026-09-30
 

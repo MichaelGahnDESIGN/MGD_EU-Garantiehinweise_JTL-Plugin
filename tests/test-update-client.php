@@ -37,7 +37,7 @@ $tmp = sys_get_temp_dir() . '/mgd-update-test-' . bin2hex(random_bytes(4));
 mkdir($tmp, 0700, true);
 $store = new JsonFileStateStore($tmp . '/state.json');
 $roots = (new KeyRing())->add('test-root-1', 'root', sodium_crypto_sign_publickey(sodium_crypto_sign_keypair()));
-$cfg = new ClientConfig(UpdateBridge::PRODUCT, 'free', '1.0.2', 'shop.example.test', $roots, $tmp);
+$cfg = new ClientConfig(UpdateBridge::PRODUCT, 'free', '1.0.3', 'shop.example.test', $roots, $tmp);
 $client = new UpdateClient($cfg, $http, new NullLicenseProvider(), $store);
 
 $make = static fn (bool $csrf, bool $right, string $name = 'Test') => new UpdatesPage(

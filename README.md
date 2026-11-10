@@ -62,7 +62,7 @@ Wichtig zu wissen:
 
 So findet der Bereich Updates:
 
-- Der Update-Kanal arbeitet im einfachen Modus: Eine kleine Textdatei auf theme.michael-gahn.de (`plugin-updates/mgd-eu-garantiehinweise.json`) nennt Version und SHA-256-Prüfsumme, das ZIP kommt von GitHub, die Prüfsumme wird beim Download nachgerechnet. Das ist eine Prüfsumme, keine Signatur. Solange die Textdatei noch nicht auf dem Server liegt, meldet der Bereich nur einen Fehler beim Abruf. Sonst passiert nichts.
+- Der Update-Kanal arbeitet im einfachen Modus: Eine kleine Textdatei auf theme.michael-gahn.de (`plugin-updates/mgd-eu-garantiehinweise.json`) nennt Version und SHA-256-Prüfsumme, das ZIP kommt von GitHub, die Prüfsumme wird beim Download nachgerechnet. Das ist eine Prüfsumme, keine Signatur.
 - Die signierte Variante (mit Schlüsseln in `update/root-keys.json`) ist vorbereitet, aber noch nicht aktiv.
 
 Mehr dazu steht im Pro-Repo in `docs/JTL-UPDATE-CLIENT.md` und `docs/UPDATE-API.md`.
