@@ -6,6 +6,7 @@
 - Update-Prüfung nur auf Wunsch (Opt-in). Keine Ein-Klick-Installation, kein Datei-Austausch, keine automatische Aktivierung. Installiert wird nur in der JTL-Pluginverwaltung.
 - Noch ohne Wirkung: Schlüsselzeremonie (B1) und Produkt auf dem Update-Server (B2) fehlen noch.
 - Neuer Smoke-Test `tests/test-update-client.php` (Rechte, CSRF, kein stiller Netzabruf, Ausgabe escaped).
+- Alte GitHub-Abfrage und Einstellung „GitHub-Updatehinweise“ entfernt (ersetzt durch den Update Client).
 - Plugin-Version bleibt unverändert bei 1.0.2.
 
 ## 1.0.2 - 2026-09-30

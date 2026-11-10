@@ -19,7 +19,7 @@
 
 Vor einem Update immer ein Backup erstellen. Das neue Release-ZIP über den Plugin-Manager einspielen und anschließend Cache sowie die drei Pflichtpositionen prüfen. Offizielle Grafikdateien dürfen nicht manuell verändert werden.
 
-Ab 1.0.1 zeigt **Systemstatus** bei aktivierter GitHub-Prüfung eine neuere stabile Version und den geprüften ZIP-Link an. Der Abruf ist auf höchstens einmal pro Stunde und Shop begrenzt. Das ZIP wird anschließend bewusst im JTL-Plugin-Manager hochgeladen; erst dessen Update-Schritt führt den Plugin-Lebenszyklus aus. Die automatische Erkennung ist kein unbeaufsichtigtes Dateiüberschreiben. Vor dem ersten produktiven Einsatz den kompletten Ablauf auf einem Testshop prüfen.
+Prüfen kannst du neue Versionen im Menüpunkt **Updates** (MGD Update Client). Das Plugin lädt das ZIP nur herunter und prüft es. Eingespielt wird es bewusst von dir im JTL-Plugin-Manager; erst dessen Update-Schritt führt den Plugin-Lebenszyklus aus. Die frühere GitHub-Abfrage und die Einstellung „GitHub-Updatehinweise“ sind entfallen.
 
 ## Rückfall und Deinstallation
 
