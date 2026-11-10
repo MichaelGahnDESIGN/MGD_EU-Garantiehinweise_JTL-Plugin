@@ -86,9 +86,14 @@ assert(str_contains($html, '&lt;script&gt;') && str_contains($html, '&lt;img src
 // Shipping-Stand: root-keys.json leer = Kanal nicht eingerichtet, kein Netz
 $keys = json_decode((string) file_get_contents($plugin . '/update/root-keys.json'), true);
 assert(is_array($keys) && ($keys['keys'] ?? null) === []);
-$real = UpdateBridge::page($plugin, $tmp . '/real', '1.0.2', 'shop.example.test', '5.5.0', static fn (): bool => true, static fn (): bool => true, '');
+// direkt über die Factory ohne Prüfsummen-Adresse, sonst ginge der Test ins Netz
+$real = \Plugin\MGD_EU_Garantiehinweise\Update\Factory::page($plugin . '/update/root-keys.json', $tmp . '/real', UpdateBridge::PRODUCT, UpdateBridge::EDITION, UpdateBridge::PLUGIN_NAME, '1.0.2', 'shop.example.test', '5.5.0', static fn (): bool => true, static fn (): bool => true, '');
 $out = $real->handle('POST', ['mgd_update_action' => 'check_now'])['html'];
 assert(str_contains($out, 'noch nicht eingerichtet'));
+
+// einfacher Modus verdrahtet (Prüfsummen-Datei), nur statisch geprüft
+assert(UpdateBridge::SIMPLE_URL === 'https://theme.michael-gahn.de/plugin-updates/mgd-eu-garantiehinweise.json');
+assert(str_contains((string) file_get_contents($plugin . '/src/Admin/UpdateBridge.php'), "['info.xml'],\n            self::SIMPLE_URL"));
 
 // Brücke: Produktname, Domain, Datenordner, ZIP-Pfade
 assert(UpdateBridge::PRODUCT === 'mgd-eu-garantiehinweise' && UpdateBridge::EDITION === 'free');

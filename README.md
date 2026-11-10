@@ -60,10 +60,10 @@ Wichtig zu wissen:
 - Der Bereich ist nur mit dem Backend-Recht für Plugins nutzbar und alle Aktionen laufen mit JTL-Sicherheits-Token.
 - Der alte Hinweis im Reiter **Systemstatus** (GitHub) bleibt unverändert bestehen.
 
-Was noch fehlt, damit der Bereich wirklich Updates findet:
+So findet der Bereich Updates:
 
-- **B1:** Die Schlüsselzeremonie ist noch nicht gemacht. Die Datei `update/root-keys.json` enthält darum keinen Schlüssel. Der Bereich zeigt dann: "Update-Kanal noch nicht eingerichtet". Es wird nichts abgerufen.
-- **B2:** Der Update-Server kennt das Produkt `mgd-eu-garantiehinweise` noch nicht. Bis dahin findet der Client nichts.
+- Der Update-Kanal arbeitet im einfachen Modus: Eine kleine Textdatei auf theme.michael-gahn.de (`plugin-updates/mgd-eu-garantiehinweise.json`) nennt Version und SHA-256-Prüfsumme, das ZIP kommt von GitHub, die Prüfsumme wird beim Download nachgerechnet. Das ist eine Prüfsumme, keine Signatur. Solange die Textdatei noch nicht auf dem Server liegt, meldet der Bereich nur einen Fehler beim Abruf. Sonst passiert nichts.
+- Die signierte Variante (mit Schlüsseln in `update/root-keys.json`) ist vorbereitet, aber noch nicht aktiv.
 
 Mehr dazu steht im Pro-Repo in `docs/JTL-UPDATE-CLIENT.md` und `docs/UPDATE-API.md`.
 

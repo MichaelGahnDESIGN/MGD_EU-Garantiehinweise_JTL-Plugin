@@ -24,6 +24,8 @@ final class UpdateBridge
     public const PRODUCT = 'mgd-eu-garantiehinweise';
     public const EDITION = 'free';
     public const PLUGIN_NAME = 'EU-Garantiehinweise';
+    // Prüfsummen-Datei auf All-Inkl  (einfacher Modus ohne Schlüssel)
+    public const SIMPLE_URL = 'https://theme.michael-gahn.de/plugin-updates/mgd-eu-garantiehinweise.json';
 
     // Datenordner ausserhalb Web: Shop-Verzeichnis templates_c, nicht im Plugin-Ordner (der wird bei Updates ersetzt)
     public static function dataDir(string $shopRoot): string
@@ -82,7 +84,9 @@ final class UpdateBridge
             $csrfValid,
             $canManage,
             $csrfField,
-            null // Free: keine Lizenz
+            null, // Free: keine Lizenz
+            ['info.xml'],
+            self::SIMPLE_URL
         );
     }
 
