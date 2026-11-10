@@ -39,6 +39,34 @@ Ab Version `1.0.1` prüft der Reiter **Systemstatus** bei aktivierter Einstellun
 
 Die Prüfung ist abschaltbar. GitHub sieht technisch die Server-IP und den Anfragezeitpunkt, aber keine Shop-, Bestell- oder Kundendaten. Fehler bei GitHub lassen das laufende Plugin unverändert. Vor einem produktiven Update Staging, Datenbank-/Dateibackup und Rückfall per vorherigem ZIP prüfen. `1.0.1` ist erst nach einem veröffentlichten Release und einem JTL-Testshop-Update als ausgerollt zu betrachten.
 
+## Updates (neuer Bereich im Backend)
+
+Im Plugin gibt es den Reiter **Updates**. Er ist neu und noch nicht ausgeliefert (Stand: Branch `feat/update-client`).
+
+So funktioniert er, Schritt für Schritt:
+
+1. Im JTL-Backend das Plugin öffnen und den Reiter **Updates** wählen.
+2. Haken bei **Update-Prüfung einschalten** setzen und speichern. Ohne diesen Haken wird nie etwas abgerufen.
+3. Oder auf **Jetzt nach Updates suchen** klicken. Der Klick gilt nur für diese eine Prüfung.
+4. Gibt es eine neue Version, erscheint sie mit Kurzinfo. Dann Haken setzen und **Paket herunterladen und prüfen** klicken.
+5. Das Plugin prüft Signatur, Prüfsumme und Inhalt des Pakets. Es wird nichts ausgepackt und nichts installiert.
+6. Danach die ZIP speichern und selbst in der JTL-Pluginverwaltung hochladen (nach einem Backup). JTL macht das Update.
+
+Wichtig zu wissen:
+
+- Das Plugin ersetzt nie selbst Dateien. Es gibt keine Ein-Klick-Installation und keine automatische Aktivierung.
+- Beim Prüfen sieht der Update-Server die IP-Adresse des Shop-Servers. Es werden keine Besucher-, Kunden- oder Bestelldaten gesendet.
+- Zustand und heruntergeladene Pakete liegen in `templates_c/mgd-update/eu-garantiehinweise` im Shop-Verzeichnis, mit einer `.htaccess`, die den Webzugriff sperrt.
+- Der Bereich ist nur mit dem Backend-Recht für Plugins nutzbar und alle Aktionen laufen mit JTL-Sicherheits-Token.
+- Der alte Hinweis im Reiter **Systemstatus** (GitHub) bleibt unverändert bestehen.
+
+So findet der Bereich Updates:
+
+- Der Update-Kanal arbeitet im einfachen Modus: Eine kleine Textdatei auf theme.michael-gahn.de (`plugin-updates/mgd-eu-garantiehinweise.json`) nennt Version und SHA-256-Prüfsumme, das ZIP kommt von GitHub, die Prüfsumme wird beim Download nachgerechnet. Das ist eine Prüfsumme, keine Signatur.
+- Die signierte Variante (mit Schlüsseln in `update/root-keys.json`) ist vorbereitet, aber noch nicht aktiv.
+
+Mehr dazu steht im Pro-Repo in `docs/JTL-UPDATE-CLIENT.md` und `docs/UPDATE-API.md`.
+
 ## GARAN über JTL-Wawi steuern
 
 Das GARAN-Label wird nur ausgegeben, wenn alle Funktionsattribute gültig sind:
