@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5 – 2026-11-11
+
+- Update-Bereich neu aus dem gemeinsamen MGD Update Client erzeugt: keine Warnung „veraltete Funktion“ (`curl_close`) mehr unter PHP 8.5.
+- Plugin-Funktion unverändert. Plugin-Version ist jetzt 1.0.5.
+
 ## 1.0.4 – 2026-11-11
 
 - README aufgeräumt: veraltete Beschreibung der alten GitHub-Abfrage im Reiter **Systemstatus** entfernt. Der Reiter **Updates** ist der einzige Update-Weg.

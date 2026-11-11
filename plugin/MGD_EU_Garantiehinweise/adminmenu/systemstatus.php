@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-$version = '1.0.4';
+$version = '1.0.5';
 $safe = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 ?>
 <div class="card"><div class="card-body">
