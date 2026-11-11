@@ -24,7 +24,7 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 - GARAN-Label nur bei vollständig gepflegten und gültigen Artikeldaten.
 - Deutsch und Englisch mit deutschem Fallback.
 - Redaktionelles OPC-Portlet für frei platzierbare Zusatzinformationen.
-- Keine Cookies oder Tracking. Die optionale Updateprüfung ruft GitHub nur beim Öffnen des Systemstatus im Backend ab.
+- Keine Cookies oder Tracking. Die Update-Prüfung läuft nur, wenn du sie im Reiter **Updates** einschaltest oder selbst startest.
 
 ## Installation
 
@@ -35,13 +35,7 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 
 ## Updates im JTL-Backend
 
-Ab Version `1.0.1` prüft der Reiter **Systemstatus** bei aktivierter Einstellung höchstens stündlich das neueste stabile GitHub-Release. Ein gültiges Release muss das exakt passende JTL-Plugin-ZIP enthalten. Der Reiter zeigt eine neue Version samt Release-Notizen und Download an. Nach einem Backup wird das ZIP unter **Plugins → Plugin-Manager → Upload** eingespielt; JTL bietet anschließend das Update der installierten Plugin-Version im Backend an. Ein GitHub-Release allein überschreibt keine Dateien im Shop und installiert keine Migrationen. Bestehende 1.0.0-Installationen benötigen einmalig dieses ZIP-Update, bevor sie selbst Release-Hinweise anzeigen können.
-
-Die Prüfung ist abschaltbar. GitHub sieht technisch die Server-IP und den Anfragezeitpunkt, aber keine Shop-, Bestell- oder Kundendaten. Fehler bei GitHub lassen das laufende Plugin unverändert. Vor einem produktiven Update Staging, Datenbank-/Dateibackup und Rückfall per vorherigem ZIP prüfen. `1.0.1` ist erst nach einem veröffentlichten Release und einem JTL-Testshop-Update als ausgerollt zu betrachten.
-
-## Updates (neuer Bereich im Backend)
-
-Im Plugin gibt es den Reiter **Updates**. Er ist neu und noch nicht ausgeliefert (Stand: Branch `feat/update-client`).
+Im Plugin gibt es den Reiter **Updates** (seit Version `1.0.3`). Er ersetzt die frühere GitHub-Abfrage im Reiter **Systemstatus**.
 
 So funktioniert er, Schritt für Schritt:
 
@@ -49,7 +43,7 @@ So funktioniert er, Schritt für Schritt:
 2. Haken bei **Update-Prüfung einschalten** setzen und speichern. Ohne diesen Haken wird nie etwas abgerufen.
 3. Oder auf **Jetzt nach Updates suchen** klicken. Der Klick gilt nur für diese eine Prüfung.
 4. Gibt es eine neue Version, erscheint sie mit Kurzinfo. Dann Haken setzen und **Paket herunterladen und prüfen** klicken.
-5. Das Plugin prüft Signatur, Prüfsumme und Inhalt des Pakets. Es wird nichts ausgepackt und nichts installiert.
+5. Das Plugin prüft Prüfsumme und Inhalt des Pakets. Es wird nichts ausgepackt und nichts installiert.
 6. Danach die ZIP speichern und selbst in der JTL-Pluginverwaltung hochladen (nach einem Backup). JTL macht das Update.
 
 Wichtig zu wissen:
@@ -58,7 +52,7 @@ Wichtig zu wissen:
 - Beim Prüfen sieht der Update-Server die IP-Adresse des Shop-Servers. Es werden keine Besucher-, Kunden- oder Bestelldaten gesendet.
 - Zustand und heruntergeladene Pakete liegen in `templates_c/mgd-update/eu-garantiehinweise` im Shop-Verzeichnis, mit einer `.htaccess`, die den Webzugriff sperrt.
 - Der Bereich ist nur mit dem Backend-Recht für Plugins nutzbar und alle Aktionen laufen mit JTL-Sicherheits-Token.
-- Der alte Hinweis im Reiter **Systemstatus** (GitHub) bleibt unverändert bestehen.
+- Vor einem Update im echten Shop: erst Backup von Datenbank und Dateien machen. Das alte ZIP aufheben, damit du zurück kannst.
 
 So findet der Bereich Updates:
 

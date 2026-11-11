@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4 – 2026-11-11
+
+- README aufgeräumt: veraltete Beschreibung der alten GitHub-Abfrage im Reiter **Systemstatus** entfernt. Der Reiter **Updates** ist der einzige Update-Weg.
+- README sagt jetzt richtig, dass im einfachen Modus eine Prüfsumme geprüft wird (keine Signatur).
+- Plugin-Funktion unverändert. Plugin-Version ist jetzt 1.0.4.
+
 ## 1.0.3 – 2026-11-10
 
 - Neuer Backend-Reiter **Updates** mit dem gemeinsamen MGD Update Client (signierte Update-Prüfung, Paket herunterladen und prüfen).
