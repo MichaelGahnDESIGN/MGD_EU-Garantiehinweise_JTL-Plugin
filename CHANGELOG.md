@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6 – 2026-11-12
+
+- Reiter **Updates**: Die Meldung nach dem Download nennt jetzt nur, was wirklich geprüft wurde. Im einfachen Modus steht dort „SHA-256-Prüfsumme, Inhalt“ statt fälschlich „Signatur“.
+- Update-Bereich neu aus dem gemeinsamen MGD Update Client erzeugt. Neuer Test für die Meldung.
+- Plugin-Funktion unverändert. Plugin-Version ist jetzt 1.0.6.
+
 ## 1.0.5 – 2026-11-11
 
 - Update-Bereich neu aus dem gemeinsamen MGD Update Client erzeugt: keine Warnung „veraltete Funktion“ (`curl_close`) mehr unter PHP 8.5.

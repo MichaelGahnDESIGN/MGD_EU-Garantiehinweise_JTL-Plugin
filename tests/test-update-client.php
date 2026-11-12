@@ -119,5 +119,11 @@ foreach ($xml->Install->Adminmenu->Customlink as $link) {
 }
 assert($found);
 
+// Erfolgsmeldung einfacher modus: keine Signatur behaupten
+$simple = new Plugin\MGD_EU_Garantiehinweise\Update\UpdateResult('update_available', 'x', null, null, ['mode' => 'simple']);
+assert(!str_contains(UpdatesPage::verifiedText($simple), 'Signatur'));
+assert(str_contains(UpdatesPage::verifiedText($simple), 'SHA-256-Prüfsumme'));
+assert(str_contains(UpdatesPage::verifiedText(new Plugin\MGD_EU_Garantiehinweise\Update\UpdateResult('update_available', 'x')), 'Signatur'));
+
 // Aufräumen
 exec('rm -rf ' . escapeshellarg($tmp));
