@@ -12,7 +12,7 @@ $xml   = simplexml_load_file($datei);
 assert($xml !== false);
 assert((string)$xml->PluginID === 'MGD_EU_Garantiehinweise');
 assert((string)$xml->MinShopVersion === '5.5.0');
-assert((string)$xml->Version === '1.0.6');
+assert((string)$xml->Version === '1.4.0');
 assert(!isset($xml->Install->Adminmenu->Settingslink));
 assert((string)$xml->Author === 'Michael Gahn DESIGN');
 assert((string)$xml->URL === 'https://Michael-Gahn.de');

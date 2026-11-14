@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0 – 2026-11-14
+
+- Gemeinsame Versionsnummer: Alle MGD-Themes und -Plugins tragen jetzt Version 1.4.0.
+- Update-Bereich auf dem aktuellen Stand des gemeinsamen MGD Update Client (keine Änderung nötig).
+- Plugin-Funktion unverändert. Es gibt nur die kostenlose Version, ohne Lizenz.
+
 ## 1.0.6 – 2026-11-12
 
 - Reiter **Updates**: Die Meldung nach dem Download nennt jetzt nur, was wirklich geprüft wurde. Im einfachen Modus steht dort „SHA-256-Prüfsumme, Inhalt“ statt fälschlich „Signatur“.
