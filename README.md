@@ -24,7 +24,8 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 - GARAN-Label nur bei vollständig gepflegten und gültigen Artikeldaten.
 - Deutsch und Englisch mit deutschem Fallback.
 - Redaktionelles OPC-Portlet für frei platzierbare Zusatzinformationen.
-- Keine Cookies oder Tracking. Die Update-Prüfung läuft nur, wenn du sie im Reiter **Updates** einschaltest oder selbst startest.
+- Keine Cookies und kein Tracking im Shop. Die Update-Prüfung läuft nur, wenn du sie im Reiter **Updates** einschaltest oder selbst startest.
+- Meldet sich höchstens einmal am Tag bei theme.michael-gahn.de (Plugin, Version, Shopsystem, Domain, zufällige ID). Abschaltbar in den Einstellungen.
 
 ## Installation
 
@@ -61,6 +62,16 @@ So findet der Bereich Updates:
 
 Mehr dazu steht im Pro-Repo in `docs/JTL-UPDATE-CLIENT.md` und `docs/UPDATE-API.md`.
 
+## Installation melden (ab Version 1.5.0)
+
+Das Plugin sagt theme.michael-gahn.de kurz Bescheid, dass es in deinem Shop läuft.
+
+- **Wann?** Beim Installieren, Aktivieren und Updaten. Danach höchstens einmal am Tag, und nur, wenn jemand im JTL-Backend ist. Besucher im Shop lösen nie etwas aus.
+- **Was wird gesendet?** Nur Plugin-Name, Version, Shopsystem, die Domain deines Shops und eine zufällige Installations-ID. Keine Kunden, keine Bestellungen, keine E-Mail.
+- **Wozu?** So sieht Michael Gahn DESIGN, wie viele Shops das Plugin nutzen, und kann Updates bereitstellen.
+- **Abschalten:** Im Plugin den Reiter **Updates** öffnen. Den Haken bei **Installation bei Michael Gahn DESIGN melden** entfernen und **Speichern** klicken. Danach wird nichts mehr gesendet und dein Eintrag auf der Plattform gelöscht.
+- Das Plugin funktioniert immer genauso weiter, auch wenn die Meldung aus ist oder die Plattform nicht erreichbar ist.
+
 ## GARAN über JTL-Wawi steuern
 
 Das GARAN-Label wird nur ausgegeben, wenn alle Funktionsattribute gültig sind:
@@ -91,7 +102,7 @@ Details stehen in [ARCHITEKTUR.md](docs/ARCHITEKTUR.md), [SICHERHEIT.md](docs/SI
 
 ## English summary
 
-Reusable open-source plugin for JTL-Shop 5.5 through the current 5.x release. It renders the statutory EU guarantee notice on the product page, cart and final checkout step and conditionally displays the GARAN label using five JTL-Wawi functional attributes. Official assets are bundled locally; no tracking or third-party runtime requests are used.
+Reusable open-source plugin for JTL-Shop 5.5 through the current 5.x release. It renders the statutory EU guarantee notice on the product page, cart and final checkout step and conditionally displays the GARAN label using five JTL-Wawi functional attributes. Official assets are bundled locally; no tracking is used. From version 1.5.0 the plugin reports itself to theme.michael-gahn.de at most once a day (plugin, version, shop system, domain, random ID); this can be switched off in the Updates tab.
 
 Installation and attribute names are language-neutral. German and English storefront output is included. This software provides technical functionality and does not constitute legal advice.
 

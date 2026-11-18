@@ -2,6 +2,10 @@
 
 namespace Plugin\MGD_EU_Garantiehinweise\Admin;
 
+use Plugin\MGD_EU_Garantiehinweise\Install\InstallClient;
+use Plugin\MGD_EU_Garantiehinweise\Install\Platform\Jtl;
+use Plugin\MGD_EU_Garantiehinweise\Install\Settings;
+use Plugin\MGD_EU_Garantiehinweise\Update\Admin\InstallReporting;
 use Plugin\MGD_EU_Garantiehinweise\Update\Admin\UpdatesPage;
 use Plugin\MGD_EU_Garantiehinweise\Update\Factory;
 
@@ -50,6 +54,37 @@ final class UpdateBridge
         return true;
     }
 
+    // Free-Lizenz Meldung - null wenn was nicht passt, dann eben keine Meldung
+    public static function installClient(string $shopRoot, string $version): ?InstallClient
+    {
+        try {
+            $dir = self::dataDir($shopRoot);
+            if (!self::prepareDataDir($dir)) {
+                return null;
+            }
+
+            return Jtl::client($dir, self::PRODUCT, $version);
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
+    // Schalter fürs Updates-Menü
+    public static function installReporting(?InstallClient $ic): ?InstallReporting
+    {
+        if ($ic === null) {
+            return null;
+        }
+
+        return new InstallReporting(
+            static fn () => $ic->ping(),
+            static fn (): bool => $ic->isEnabled(),
+            static fn (bool $on) => $ic->setEnabled($on),
+            static fn (): string => $ic->status(),
+            Settings::HINT,
+        );
+    }
+
     // Domain aus Shop-URL (ohne Port, kleingeschrieben)
     public static function domainFromUrl(string $url): string
     {
@@ -71,6 +106,7 @@ final class UpdateBridge
         callable $csrfValid,
         callable $canManage,
         string $csrfField,
+        ?InstallReporting $install = null,
     ): UpdatesPage {
         return Factory::page(
             rtrim($pluginDir, '/\\') . '/update/root-keys.json',
@@ -86,7 +122,8 @@ final class UpdateBridge
             $csrfField,
             null, // Free: keine Lizenz
             ['info.xml'],
-            self::SIMPLE_URL
+            self::SIMPLE_URL,
+            $install
         );
     }
 

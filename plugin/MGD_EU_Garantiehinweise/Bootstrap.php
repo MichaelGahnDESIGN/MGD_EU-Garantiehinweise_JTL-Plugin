@@ -5,6 +5,7 @@ namespace Plugin\MGD_EU_Garantiehinweise;
 use JTL\Events\Dispatcher;
 use JTL\Plugin\Bootstrapper;
 use JTL\Shop;
+use Plugin\MGD_EU_Garantiehinweise\Admin\UpdateBridge;
 use Plugin\MGD_EU_Garantiehinweise\Assets\AssetIntegrityService;
 use Plugin\MGD_EU_Garantiehinweise\Frontend\AssetPlacementService;
 use Plugin\MGD_EU_Garantiehinweise\Frontend\DocumentPlacementService;
@@ -25,6 +26,11 @@ final class Bootstrap extends Bootstrapper
     {
         parent::boot($dispatcher);
         $this->registerPluginAutoloader();
+
+        // Free-Lizenz: nur im Backend, max 1x am Tag (nie im Shop-Frontend)
+        if (Shop::isAdmin()) {
+            $this->reportInstall(false);
+        }
 
         $dispatcher->hookInto(\HOOK_SMARTY_OUTPUTFILTER, function (array $args): void {
             $document = $args['document'] ?? null;
@@ -85,6 +91,35 @@ final class Bootstrap extends Bootstrapper
         }, 20);
     }
 
+    public function installed()
+    {
+        parent::installed();
+        $this->reportInstall(true);
+    }
+
+    public function enabled()
+    {
+        parent::enabled();
+        $this->reportInstall(true);
+    }
+
+    public function updated($oldVersion, $newVersion)
+    {
+        parent::updated($oldVersion, $newVersion);
+        $this->reportInstall(true);
+    }
+
+    // Meldung an theme.michael-gahn.de - darf nie die Installation kaputt machen
+    private function reportInstall(bool $force): void
+    {
+        try {
+            $this->registerPluginAutoloader();
+            $version = (string) $this->getPlugin()->getMeta()->getVersion();
+            UpdateBridge::installClient(defined('PFAD_ROOT') ? (string) \PFAD_ROOT : __DIR__, $version)?->ping($force);
+        } catch (\Throwable) {
+        }
+    }
+
     /**
      * JTL ordnet den Plugin-Namespace standardmäßig dem Plugin-Hauptordner zu.
      * Unsere Fachdienste liegen bewusst gesammelt in src; dieser kleine Loader
@@ -92,6 +127,12 @@ final class Bootstrap extends Bootstrapper
      */
     private function registerPluginAutoloader(): void
     {
+        // nur 1x registrieren (boot + installed)
+        static $done = false;
+        if ($done) {
+            return;
+        }
+        $done = true;
         spl_autoload_register(static function (string $class): void {
             $prefix = __NAMESPACE__ . '\\';
             if (!str_starts_with($class, $prefix)) {

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0 – 2026-11-18
+
+- Neu: Das Plugin meldet sich höchstens einmal am Tag bei theme.michael-gahn.de (Plugin, Version, Shopsystem, Domain, zufällige ID). Beim Installieren, Aktivieren und Updaten sofort, sonst nur im Backend, nie im Shop.
+- Schalter **Installation bei Michael Gahn DESIGN melden** im Reiter **Updates**. Ab Werk an, jederzeit abschaltbar. Beim Abschalten wird der Eintrag auf der Plattform gelöscht.
+- Das Plugin läuft immer voll weiter, auch ohne Plattform oder mit ausgeschalteter Meldung.
+- Kurztext in der Plugin-Beschreibung, README und Sicherheits-Doku angepasst. Neuer Test `tests/test-install-client.php`.
+- Install-Client und Update-Client aus dem gemeinsamen MGD-Baukasten neu erzeugt.
+
 ## 1.4.0 – 2026-11-14
 
 - Gemeinsame Versionsnummer: Alle MGD-Themes und -Plugins tragen jetzt Version 1.4.0.

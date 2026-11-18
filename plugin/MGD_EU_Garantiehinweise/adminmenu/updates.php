@@ -35,7 +35,8 @@ try {
         $shopVersion,
         static fn (): bool => Form::validateToken(), // CSRF Check
         $canManage,
-        Form::getTokenInput()
+        Form::getTokenInput(),
+        UpdateBridge::installReporting(UpdateBridge::installClient(defined('PFAD_ROOT') ? (string) PFAD_ROOT : $pluginDir, $version)) // Free-Lizenz Schalter
     );
     $result = $page->handle((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'), $_POST);
 } catch (\Throwable) {

@@ -2,7 +2,7 @@
 
 ## Datenminimierung
 
-Das Plugin speichert keine personenbezogenen Daten, setzt keine Cookies, führt kein Tracking durch und überträgt keine Shopdaten an Dritte. Alle EU-Grafiken liegen lokal im Plugin.
+Das Plugin speichert keine personenbezogenen Daten, setzt keine Cookies, führt kein Tracking durch und überträgt keine Shopdaten an Dritte. Ab Version 1.5.0 meldet es sich höchstens einmal am Tag bei theme.michael-gahn.de (Plugin, Version, Shopsystem, Domain, zufällige ID). Das läuft nur im Backend und ist im Reiter „Updates“ abschaltbar. Alle EU-Grafiken liegen lokal im Plugin.
 
 ## Sichere Artikeldaten
 
