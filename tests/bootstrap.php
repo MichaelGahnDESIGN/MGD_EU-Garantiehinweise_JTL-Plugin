@@ -10,7 +10,9 @@ spl_autoload_register(static function (string $klasse): void {
     }
 
     $relativ = substr($klasse, strlen($praefix));
-    $datei   = __DIR__ . '/../plugin/MGD_EU_Garantiehinweise/src/'
+    // Baukasten liegt direkt im Plugin-Ordner (JTL laedt Plugin\\<ID>\\Kit von selbst), der Rest in src
+    $ordner  = str_starts_with($relativ, 'Kit\\') ? '' : 'src/';
+    $datei   = __DIR__ . '/../plugin/MGD_EU_Garantiehinweise/' . $ordner
         . str_replace('\\', '/', $relativ) . '.php';
 
     if (is_file($datei)) {

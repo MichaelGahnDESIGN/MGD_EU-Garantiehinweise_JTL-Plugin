@@ -28,13 +28,6 @@ assert(str_contains((string) simplexml_load_file($plugin . '/info.xml')->Descrip
 assert(!str_contains(file_get_contents($plugin . '/src/Install/Settings.php') ?: '', 'ENTWURF'));
 assert(str_contains(Settings::HINT, 'jederzeit abschalten'));
 
-// Bootstrap meldet täglich nur im Admin
-$boot = file_get_contents($plugin . '/Bootstrap.php') ?: '';
-assert(str_contains($boot, "if (Shop::isAdmin()) {\n            \$this->reportInstall(false);"));
-foreach (['installed', 'enabled', 'updated'] as $hook) {
-    assert(preg_match('/function ' . $hook . '\([^)]*\)\s*\{[^}]*reportInstall\(true\)/s', $boot) === 1);
-}
-
 // Ohne Client kein Schalter
 assert(UpdateBridge::installReporting(null) === null);
 

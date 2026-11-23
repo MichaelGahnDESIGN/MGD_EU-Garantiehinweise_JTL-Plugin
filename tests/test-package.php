@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-$version = '1.5.0';
+$version = '1.6.0';
 $wurzel = dirname(__DIR__);
 $archiv = $wurzel . '/dist/MGD_EU-Garantiehinweise_JTL-Plugin-' . $version . '.zip';
 

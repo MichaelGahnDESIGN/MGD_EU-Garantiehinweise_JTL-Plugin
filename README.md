@@ -24,7 +24,7 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 - GARAN-Label nur bei vollständig gepflegten und gültigen Artikeldaten.
 - Deutsch und Englisch mit deutschem Fallback.
 - Redaktionelles OPC-Portlet für frei platzierbare Zusatzinformationen.
-- Keine Cookies und kein Tracking im Shop. Die Update-Prüfung läuft nur, wenn du sie im Reiter **Updates** einschaltest oder selbst startest.
+- Keine Cookies und kein Tracking im Shop. Die Update-Prüfung läuft nur, wenn du sie im Reiter **Übersicht** einschaltest oder selbst startest.
 - Meldet sich höchstens einmal am Tag bei theme.michael-gahn.de (Plugin, Version, Shopsystem, Domain, zufällige ID). Abschaltbar in den Einstellungen.
 
 ## Installation
@@ -34,14 +34,23 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 3. Shop- und Template-Cache leeren.
 4. Produktseite, Warenkorb und letzten Checkout-Schritt in beiden Sprachen prüfen.
 
-## Updates im JTL-Backend
+## Die Reiter **Übersicht** und **Weitere Plugins** (ab Version 1.6.0)
 
-Im Plugin gibt es den Reiter **Updates** (seit Version `1.0.3`). Er ersetzt die frühere GitHub-Abfrage im Reiter **Systemstatus**.
+Seit Version `1.6.0` hat das Plugin den gemeinsamen MGD-Baukasten. Er ersetzt den alten Reiter **Updates**. Du findest alles im JTL-Backend unter **Plugins**, dann dieses Plugin.
 
-So funktioniert er, Schritt für Schritt:
+### Reiter **Übersicht**
 
-1. Im JTL-Backend das Plugin öffnen und den Reiter **Updates** wählen.
-2. Haken bei **Update-Prüfung einschalten** setzen und speichern. Ohne diesen Haken wird nie etwas abgerufen.
+Hier steht alles auf einer Seite:
+
+- **Info:** Name und Version des Plugins.
+- **Updates:** Hier suchst du nach einer neuen Version (siehe unten).
+- **Weitere Plugins:** Eine kleine Liste mit anderen Plugins von Michael Gahn DESIGN.
+- **Installation melden:** Der Schalter für die Meldung (siehe unten).
+
+### Updates, Schritt für Schritt
+
+1. Im JTL-Backend das Plugin öffnen und den Reiter **Übersicht** wählen.
+2. Haken bei **Update-Prüfung einschalten** setzen und speichern. Ohne diesen Haken wird nie nach Updates gesucht.
 3. Oder auf **Jetzt nach Updates suchen** klicken. Der Klick gilt nur für diese eine Prüfung.
 4. Gibt es eine neue Version, erscheint sie mit Kurzinfo. Dann Haken setzen und **Paket herunterladen und prüfen** klicken.
 5. Das Plugin prüft Prüfsumme und Inhalt des Pakets. Es wird nichts ausgepackt und nichts installiert.
@@ -51,25 +60,32 @@ Wichtig zu wissen:
 
 - Das Plugin ersetzt nie selbst Dateien. Es gibt keine Ein-Klick-Installation und keine automatische Aktivierung.
 - Beim Prüfen sieht der Update-Server die IP-Adresse des Shop-Servers. Es werden keine Besucher-, Kunden- oder Bestelldaten gesendet.
-- Zustand und heruntergeladene Pakete liegen in `templates_c/mgd-update/eu-garantiehinweise` im Shop-Verzeichnis, mit einer `.htaccess`, die den Webzugriff sperrt.
-- Der Bereich ist nur mit dem Backend-Recht für Plugins nutzbar und alle Aktionen laufen mit JTL-Sicherheits-Token.
+- Zustand und heruntergeladene Pakete liegen in `templates_c/mgd_eu_garantiehinweise_update` im Shop-Verzeichnis, mit einer `.htaccess`, die den Webzugriff sperrt.
+- Nur angemeldete Backend-Benutzer mit dem Recht **Plugins verwalten** sehen etwas. Alle Aktionen laufen mit dem JTL-Sicherheits-Token.
 - Vor einem Update im echten Shop: erst Backup von Datenbank und Dateien machen. Das alte ZIP aufheben, damit du zurück kannst.
-
-So findet der Bereich Updates:
-
 - Der Update-Kanal arbeitet im einfachen Modus: Eine kleine Textdatei auf theme.michael-gahn.de (`plugin-updates/mgd-eu-garantiehinweise.json`) nennt Version und SHA-256-Prüfsumme, das ZIP kommt von GitHub, die Prüfsumme wird beim Download nachgerechnet. Das ist eine Prüfsumme, keine Signatur.
-- Die signierte Variante (mit Schlüsseln in `update/root-keys.json`) ist vorbereitet, aber noch nicht aktiv.
+- Ein Hinweis „Bitte aktualisieren“ erscheint nur, wenn die Update-Prüfung oder **Installation melden** eingeschaltet ist.
 
-Mehr dazu steht im Pro-Repo in `docs/JTL-UPDATE-CLIENT.md` und `docs/UPDATE-API.md`.
+### Reiter **Weitere Plugins**
+
+- Zeigt Karten mit anderen MGD-Plugins für JTL-Shop (mit Suche, Kategorien und Details). Dein eigenes Plugin steht nicht dabei.
+- **Was passiert beim Öffnen?** Das Plugin holt die öffentliche Plugin-Liste von theme.michael-gahn.de. Der Server sieht dabei die IP-Adresse deines Shop-Servers, aber keine Shop-, Kunden- oder Bestelldaten. Kleine Vorschaubilder werden einmal geholt und im Ordner `mediafiles/mgd-kit-catalog` deines Shops gespeichert. Dein Browser lädt nie Bilder von einem fremden Server.
+- Es wird **nichts installiert**. Installiert wird immer nur von Hand in der JTL-Pluginverwaltung.
+- Ist theme.michael-gahn.de nicht erreichbar, zeigt das Plugin die letzte gute Liste oder eine eingebaute Ersatzliste. Der Shop läuft normal weiter.
+
+### Update von Version 1.5.x
+
+Du musst nichts tun. Beim ersten Öffnen holt das Plugin die alten Daten (Schalter und Update-Zustand) aus `templates_c/mgd-update/eu-garantiehinweise` in den neuen Ordner. Die alten Dateien bekommen die Endung `.migrated` und werden nicht gelöscht. Deine Einstellungen und deine Installations-ID bleiben so erhalten.
 
 ## Installation melden (ab Version 1.5.0)
 
 Das Plugin sagt theme.michael-gahn.de kurz Bescheid, dass es in deinem Shop läuft.
 
-- **Wann?** Beim Installieren, Aktivieren und Updaten. Danach höchstens einmal am Tag, und nur, wenn jemand im JTL-Backend ist. Besucher im Shop lösen nie etwas aus.
+- **Wann?** Beim Installieren, Aktivieren und Updaten. Danach höchstens einmal am Tag, nur im Backend-Bereich und bei Hintergrundläufen des Shops (zum Beispiel Wawi-Abgleich). Besucher im Shop lösen nie etwas aus.
 - **Was wird gesendet?** Nur Plugin-Name, Version, Shopsystem, die Domain deines Shops und eine zufällige Installations-ID. Keine Kunden, keine Bestellungen, keine E-Mail.
 - **Wozu?** So sieht Michael Gahn DESIGN, wie viele Shops das Plugin nutzen, und kann Updates bereitstellen.
-- **Abschalten:** Im Plugin den Reiter **Updates** öffnen. Den Haken bei **Installation bei Michael Gahn DESIGN melden** entfernen und **Speichern** klicken. Danach wird nichts mehr gesendet und dein Eintrag auf der Plattform gelöscht.
+- **Abschalten:** Im Plugin den Reiter **Übersicht** öffnen. Den Haken bei **Installation bei Michael Gahn DESIGN melden** entfernen und **Speichern** klicken. Danach wird nichts mehr gesendet und dein Eintrag auf der Plattform gelöscht.
+- **Deinstallieren:** Auch beim Deinstallieren des Plugins wird dein Eintrag auf der Plattform gelöscht. Wählst du dabei „Daten löschen“, verschwindet auch der Datenordner.
 - Das Plugin funktioniert immer genauso weiter, auch wenn die Meldung aus ist oder die Plattform nicht erreichbar ist.
 
 ## GARAN über JTL-Wawi steuern
@@ -102,7 +118,7 @@ Details stehen in [ARCHITEKTUR.md](docs/ARCHITEKTUR.md), [SICHERHEIT.md](docs/SI
 
 ## English summary
 
-Reusable open-source plugin for JTL-Shop 5.5 through the current 5.x release. It renders the statutory EU guarantee notice on the product page, cart and final checkout step and conditionally displays the GARAN label using five JTL-Wawi functional attributes. Official assets are bundled locally; no tracking is used. From version 1.5.0 the plugin reports itself to theme.michael-gahn.de at most once a day (plugin, version, shop system, domain, random ID); this can be switched off in the Updates tab.
+Reusable open-source plugin for JTL-Shop 5.5 through the current 5.x release. It renders the statutory EU guarantee notice on the product page, cart and final checkout step and conditionally displays the GARAN label using five JTL-Wawi functional attributes. Official assets are bundled locally; no tracking is used. From version 1.5.0 the plugin reports itself to theme.michael-gahn.de at most once a day (plugin, version, shop system, domain, random ID); this can be switched off in the Overview tab. Version 1.6.0 adds the MGD toolkit with the tabs Overview and More plugins (a list of other MGD plugins, nothing is installed automatically).
 
 Installation and attribute names are language-neutral. German and English storefront output is included. This software provides technical functionality and does not constitute legal advice.
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0 – 2026-11-24
+
+- Brückenversion: Das Plugin nutzt jetzt den gemeinsamen MGD-Baukasten (Update, Installation melden, Weitere Plugins).
+- Zwei neue Reiter: **Übersicht** (Info, Updates, Weitere Plugins, Installation melden) und **Weitere Plugins** (Liste anderer MGD-Plugins für JTL-Shop, es wird nichts installiert).
+- Der alte Reiter **Updates** ist nicht mehr angemeldet. Der alte Code bleibt bis zur Endversion liegen.
+- Alte Daten aus 1.5.x (Schalter, Update-Zustand, Installations-ID) werden beim ersten Start automatisch in den neuen Datenordner `templates_c/mgd_eu_garantiehinweise_update` übernommen.
+- Beim Deinstallieren meldet sich das Plugin auch bei theme.michael-gahn.de ab. Mit „Daten löschen“ verschwindet der Datenordner.
+- README, Sicherheits-Doku und Systemstatus angepasst. Neuer Test `tests/test-kit-bridge.php`.
+- Plugin-Funktion (EU-Hinweis, GARAN-Label, Portlet) unverändert.
+
 ## 1.5.0 – 2026-11-18
 
 - Neu: Das Plugin meldet sich höchstens einmal am Tag bei theme.michael-gahn.de (Plugin, Version, Shopsystem, Domain, zufällige ID). Beim Installieren, Aktivieren und Updaten sofort, sonst nur im Backend, nie im Shop.

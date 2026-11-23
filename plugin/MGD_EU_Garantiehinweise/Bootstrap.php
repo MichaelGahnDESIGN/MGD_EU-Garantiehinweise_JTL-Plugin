@@ -5,13 +5,14 @@ namespace Plugin\MGD_EU_Garantiehinweise;
 use JTL\Events\Dispatcher;
 use JTL\Plugin\Bootstrapper;
 use JTL\Shop;
-use Plugin\MGD_EU_Garantiehinweise\Admin\UpdateBridge;
+use Plugin\MGD_EU_Garantiehinweise\Admin\KitBridge;
 use Plugin\MGD_EU_Garantiehinweise\Assets\AssetIntegrityService;
 use Plugin\MGD_EU_Garantiehinweise\Frontend\AssetPlacementService;
 use Plugin\MGD_EU_Garantiehinweise\Frontend\DocumentPlacementService;
 use Plugin\MGD_EU_Garantiehinweise\Frontend\HtmlRenderer;
 use Plugin\MGD_EU_Garantiehinweise\Garan\GaranAttributeReader;
 use Plugin\MGD_EU_Garantiehinweise\Garan\GaranEligibilityService;
+use Plugin\MGD_EU_Garantiehinweise\Kit\Platform\Jtl\JtlKit;
 use Plugin\MGD_EU_Garantiehinweise\Language\LanguageService;
 
 /**
@@ -27,9 +28,9 @@ final class Bootstrap extends Bootstrapper
         parent::boot($dispatcher);
         $this->registerPluginAutoloader();
 
-        // Free-Lizenz: nur im Backend, max 1x am Tag (nie im Shop-Frontend)
-        if (Shop::isAdmin()) {
-            $this->reportInstall(false);
+        // Baukasten Meldung: max 1x am Tag, nie fuer Shop-Besucher
+        if (!Shop::isFrontend() && PHP_SAPI !== 'cli') {
+            $this->kit()?->ping();
         }
 
         $dispatcher->hookInto(\HOOK_SMARTY_OUTPUTFILTER, function (array $args): void {
@@ -94,29 +95,38 @@ final class Bootstrap extends Bootstrapper
     public function installed()
     {
         parent::installed();
-        $this->reportInstall(true);
+        $this->kit()?->ping(true);
     }
 
     public function enabled()
     {
         parent::enabled();
-        $this->reportInstall(true);
+        $this->kit()?->ping(true);
     }
 
     public function updated($oldVersion, $newVersion)
     {
         parent::updated($oldVersion, $newVersion);
-        $this->reportInstall(true);
+        $this->kit()?->ping(true);
     }
 
-    // Meldung an theme.michael-gahn.de - darf nie die Installation kaputt machen
-    private function reportInstall(bool $force): void
+    // beim Deinstallieren auch bei theme.michael-gahn.de abmelden
+    public function uninstalled(bool $deleteData = true): void
+    {
+        $this->kit()?->uninstall($deleteData);
+        parent::uninstalled($deleteData);
+    }
+
+    // Baukasten holen - nie Exception, null = tut einfach nix
+    private function kit(): ?JtlKit
     {
         try {
             $this->registerPluginAutoloader();
-            $version = (string) $this->getPlugin()->getMeta()->getVersion();
-            UpdateBridge::installClient(defined('PFAD_ROOT') ? (string) \PFAD_ROOT : __DIR__, $version)?->ping($force);
+            require_once __DIR__ . '/src/Admin/KitBridge.php';
+
+            return KitBridge::kit($this->getPlugin());
         } catch (\Throwable) {
+            return null;
         }
     }
 

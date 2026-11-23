@@ -107,17 +107,13 @@ assert(UpdateBridge::safeZipPath($tmp . '/data/quarantine/a.zip', $tmp . '/data'
 assert(UpdateBridge::safeZipPath($tmp . '/data/b.zip', $tmp . '/data') === null);
 assert(UpdateBridge::safeZipPath($tmp . '/data/quarantine/../b.zip', $tmp . '/data') === null);
 
-// info.xml: Menüpunkt Updates + Datei vorhanden
+// alter Reiter Updates ist ab 1.6.0 nicht mehr angemeldet (Datei bleibt bis zur Endversion liegen)
 $xml = simplexml_load_file($plugin . '/info.xml');
 assert($xml !== false);
-$found = false;
 foreach ($xml->Install->Adminmenu->Customlink as $link) {
-    if ((string) $link->Filename === 'updates.php') {
-        $found = true;
-        assert(is_file($plugin . '/adminmenu/updates.php'));
-    }
+    assert((string) $link->Filename !== 'updates.php');
 }
-assert($found);
+assert(is_file($plugin . '/adminmenu/updates.php'));
 
 // Erfolgsmeldung einfacher modus: keine Signatur behaupten
 $simple = new Plugin\MGD_EU_Garantiehinweise\Update\UpdateResult('update_available', 'x', null, null, ['mode' => 'simple']);
