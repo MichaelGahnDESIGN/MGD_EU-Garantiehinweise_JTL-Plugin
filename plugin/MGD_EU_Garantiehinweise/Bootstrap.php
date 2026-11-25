@@ -5,6 +5,7 @@ namespace Plugin\MGD_EU_Garantiehinweise;
 use JTL\Events\Dispatcher;
 use JTL\Plugin\Bootstrapper;
 use JTL\Shop;
+use JTL\Smarty\JTLSmarty;
 use Plugin\MGD_EU_Garantiehinweise\Admin\KitBridge;
 use Plugin\MGD_EU_Garantiehinweise\Assets\AssetIntegrityService;
 use Plugin\MGD_EU_Garantiehinweise\Frontend\AssetPlacementService;
@@ -13,6 +14,7 @@ use Plugin\MGD_EU_Garantiehinweise\Frontend\HtmlRenderer;
 use Plugin\MGD_EU_Garantiehinweise\Garan\GaranAttributeReader;
 use Plugin\MGD_EU_Garantiehinweise\Garan\GaranEligibilityService;
 use Plugin\MGD_EU_Garantiehinweise\Kit\Platform\Jtl\JtlKit;
+use Plugin\MGD_EU_Garantiehinweise\Kit\Platform\Jtl\Setup;
 use Plugin\MGD_EU_Garantiehinweise\Language\LanguageService;
 
 /**
@@ -28,8 +30,8 @@ final class Bootstrap extends Bootstrapper
         parent::boot($dispatcher);
         $this->registerPluginAutoloader();
 
-        // Baukasten Meldung: max 1x am Tag, nie fuer Shop-Besucher
-        if (!Shop::isFrontend() && PHP_SAPI !== 'cli') {
+        // Baukasten Meldung: max 1x am Tag, nur im Admin (nicht Besucher, nicht Wawi, nicht CLI)
+        if (Setup::isBackend()) {
             $this->kit()?->ping();
         }
 
@@ -107,7 +109,8 @@ final class Bootstrap extends Bootstrapper
     public function updated($oldVersion, $newVersion)
     {
         parent::updated($oldVersion, $newVersion);
-        $this->kit()?->ping(true);
+        // JTL hat hier noch die alte Version drin > neue mitgeben
+        $this->kit((string) $newVersion)?->ping(true);
     }
 
     // beim Deinstallieren auch bei theme.michael-gahn.de abmelden
@@ -117,14 +120,20 @@ final class Bootstrap extends Bootstrapper
         parent::uninstalled($deleteData);
     }
 
+    // Tabs aus dem Baukasten. JTL nimmt zuerst adminmenu/*.php, das hier greift nur wenn die Datei fehlt
+    public function renderAdminMenuTab(string $tabName, int $menuID, JTLSmarty $smarty): string
+    {
+        return Setup::renderTab($this->kit(), $tabName) ?? parent::renderAdminMenuTab($tabName, $menuID, $smarty);
+    }
+
     // Baukasten holen - nie Exception, null = tut einfach nix
-    private function kit(): ?JtlKit
+    private function kit(?string $version = null): ?JtlKit
     {
         try {
             $this->registerPluginAutoloader();
             require_once __DIR__ . '/src/Admin/KitBridge.php';
 
-            return KitBridge::kit($this->getPlugin());
+            return Setup::forShop($this->getPlugin(), KitBridge::options($version));
         } catch (\Throwable) {
             return null;
         }

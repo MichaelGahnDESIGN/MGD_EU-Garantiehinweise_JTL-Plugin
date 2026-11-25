@@ -22,6 +22,9 @@ fi
 mkdir -p "${BUILD_DIR}" "${DIST_DIR}"
 cp -R "${ROOT_DIR}/plugin/${PLUGIN_ID}" "${BUILD_DIR}/${PLUGIN_ID}"
 find "${BUILD_DIR}" -name '.DS_Store' -delete
+# Rechte fuers ZIP vereinheitlichen, sonst 403 bei Icons/Bildern (Befund Share)
+find "${BUILD_DIR}" -type d -exec chmod 755 {} +
+find "${BUILD_DIR}" -type f -exec chmod 644 {} +
 
 (
     cd "${BUILD_DIR}"
