@@ -27,6 +27,25 @@ Shop-unabhängiges Open-Source-Plugin für den allgemeinen EU-Gewährleistungshi
 - Keine Cookies und kein Tracking im Shop. Die Update-Prüfung läuft nur, wenn du sie im Reiter **Übersicht** einschaltest oder selbst startest.
 - Meldet sich höchstens einmal am Tag bei theme.michael-gahn.de (Plugin, Version, Shopsystem, Domain, zufällige ID). Abschaltbar in den Einstellungen.
 
+## Kurz erklärt (für Einsteiger)
+
+- ✅ = geht, erledigt
+- ⚠️ = wichtiger Hinweis
+- ☑️ = noch offen
+
+So geht es in drei Schritten:
+
+1. ZIP aus den [Releases](https://github.com/MichaelGahnDESIGN/MGD_EU-Garantiehinweise_JTL-Plugin/releases/latest) laden.
+2. Im JTL-Backend unter **Plugins > Plugin-Manager** hochladen und aktivieren.
+3. Shop-Cache leeren und die Produktseite ansehen. Fertig.
+
+⚠️ Dieses Plugin braucht keine Lizenz und hat keine Pro-Version.
+
+## Verwandte MGD Projekte
+
+- [Michael Gahn DESIGN](https://Michael-Gahn.de) (Startseite)
+- [MGD Themes und Plugins](https://theme.michael-gahn.de) (alle Plugins und Themes mit Demo)
+
 ## Installation
 
 1. Das Release-ZIP im JTL-Shop-Backend unter **Plugins > Plugin-Manager > Upload** hochladen.
