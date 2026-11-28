@@ -53,7 +53,7 @@ So geht es in drei Schritten:
 3. Shop- und Template-Cache leeren.
 4. Produktseite, Warenkorb und letzten Checkout-Schritt in beiden Sprachen prüfen.
 
-## Die Reiter **Übersicht** und **Weitere Plugins** (ab Version 1.6.0)
+## Die Reiter **Übersicht** und **Weitere Plugins** (ab Version 2.2.0)
 
 Seit Version `1.6.0` hat das Plugin den gemeinsamen MGD-Baukasten. Er ersetzt den alten Reiter **Updates**. Du findest alles im JTL-Backend unter **Plugins**, dann dieses Plugin.
 
@@ -96,7 +96,7 @@ Wichtig zu wissen:
 
 Du musst nichts tun. Beim ersten Öffnen holt das Plugin die alten Daten (Schalter und Update-Zustand) aus `templates_c/mgd-update/eu-garantiehinweise` in den neuen Ordner. Die alten Dateien bekommen die Endung `.migrated` und werden nicht gelöscht. Deine Einstellungen und deine Installations-ID bleiben so erhalten.
 
-## Installation melden (ab Version 1.5.0)
+## Installation melden (ab Version 2.2.0)
 
 Das Plugin sagt theme.michael-gahn.de kurz Bescheid, dass es in deinem Shop läuft.
 
@@ -137,7 +137,7 @@ Details stehen in [ARCHITEKTUR.md](docs/ARCHITEKTUR.md), [SICHERHEIT.md](docs/SI
 
 ## English summary
 
-Reusable open-source plugin for JTL-Shop 5.5 through the current 5.x release. It renders the statutory EU guarantee notice on the product page, cart and final checkout step and conditionally displays the GARAN label using five JTL-Wawi functional attributes. Official assets are bundled locally; no tracking is used. From version 1.5.0 the plugin reports itself to theme.michael-gahn.de at most once a day (plugin, version, shop system, domain, random ID); this can be switched off in the Overview tab. Version 1.6.0 adds the MGD toolkit with the tabs Overview and More plugins (a list of other MGD plugins, nothing is installed automatically).
+Reusable open-source plugin for JTL-Shop 5.5 through the current 5.x release. It renders the statutory EU guarantee notice on the product page, cart and final checkout step and conditionally displays the GARAN label using five JTL-Wawi functional attributes. Official assets are bundled locally; no tracking is used. From version 2.2.0 the plugin reports itself to theme.michael-gahn.de at most once a day (plugin, version, shop system, domain, random ID); this can be switched off in the Overview tab. Version 2.2.0 adds the MGD toolkit with the tabs Overview and More plugins (a list of other MGD plugins, nothing is installed automatically).
 
 Installation and attribute names are language-neutral. German and English storefront output is included. This software provides technical functionality and does not constitute legal advice.
 
